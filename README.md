@@ -1,2 +1,2 @@
 ### Eng Log
-*The engineering log to reflect and capture your thoughts.*
+*The engineering log to reflect and capture your thoughts, progress and TODOs.*
