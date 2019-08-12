@@ -4,14 +4,13 @@ import (
 	"errors"
 	"fmt"
 	"github.com/manifoldco/promptui"
+	"gopkg.in/yaml.v2"
+	"io/ioutil"
+	"log"
 	"strconv"
 )
 
 func getCurrentDay() {
-
-}
-
-func generateOutput() {
 
 }
 
@@ -22,7 +21,7 @@ func archive() {
 func handleError(err error) {
 	if err != nil {
 		fmt.Printf("Prompt failed %v\n", err)
-		panic(err)
+		log.Fatalln(err)
 	}
 }
 
@@ -61,19 +60,39 @@ func validateNumFunc() promptui.ValidateFunc{
 	}
 }
 
-func generateMd(questions []string, time string, learned string, activities string, toImprove string, wentWell string) string {
-	return ""
+func getAnswers(questions []string) map[string]string {
+	questionAnswerPairs := make(map[string]string)
+	for _, q := range questions {
+		questionAnswerPairs[q] = getInput(promptInputNoValidate(q))
+	}
+	return questionAnswerPairs
+}
+
+func generateMd(questions []string) string{
+	out := ""
+	qa := getAnswers(questions)
+	for q, a := range qa {
+		out += fmt.Sprintf("\n#### %s\n%s\n", q, a)
+	}
+	return out
+}
+
+type listOfQuestions struct {
+	Questions []string `yaml:questions`
+}
+
+func (q *listOfQuestions) getQuestions() *listOfQuestions{
+	yamlFile, err := ioutil.ReadFile("questions.yaml")
+	handleError(err)
+	err = yaml.Unmarshal(yamlFile, q)
+	handleError(err)
+	return q
 }
 
 func startPrompt() {
-	output := generateMd(
-		getSelectInput(promptMoodChoices()),
-		getInput(promptInput(validateNumFunc(), "How long, in minutes, did you design and code for? ")),
-		getInput(promptInputNoValidate("What did you learn? ")),
-		getInput(promptInputNoValidate("What did you do? ")),
-		getInput(promptInputNoValidate("What could have gone better? ")),
-		getInput(promptInputNoValidate("What went well? ")),
-	)
+	var questionsToPrompt listOfQuestions
+	questionsToPrompt.getQuestions()
+	output := generateMd(questionsToPrompt.Questions)
 	fmt.Println(output)
 }
 
