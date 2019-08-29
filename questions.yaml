@@ -1,6 +1,13 @@
+status:
+  - "good"
+  - "focused"
+  - "ok"
+  - "tired"
+  - "stressed"
+  - "distracted"
 questions:
-  - "How long, in minutes, did you design and code for? "
-  - "What did you learn? "
+  - "Approximately how long, in minutes, did you design and code for? "
   - "What did you do? "
+  - "Did you learn anything new? If so, what did you learn? "
   - "What could have gone better? "
   - "What went well? "
