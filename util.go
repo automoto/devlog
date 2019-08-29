@@ -6,10 +6,15 @@ import (
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"log"
+	"time"
 )
 
-func getCurrentDay() {
+func getCurrentDayAndTime() string{
+	return time.Now().Format("2006-01-02 15:04:05")
+}
 
+func getCurrentDay() string{
+	return time.Now().Format("2006-01-02")
 }
 
 func archive() {
@@ -49,9 +54,11 @@ func getAnswers(selectChoices []string, questions []string) map[string]string {
 
 func generateMd(selectChoices []string, questions []string) string{
 	out := ""
+	out += "### Dev Log\n"
+	out += fmt.Sprintf("*generated at: %s*", getCurrentDayAndTime())
 	qa := getAnswers(selectChoices, questions)
 	for q, a := range qa {
-		out += fmt.Sprintf("\n#### %s\n%s\n", q, a)
+		out += fmt.Sprintf("\n##### %s\n%s\n", q, a)
 	}
 	return out
 }
