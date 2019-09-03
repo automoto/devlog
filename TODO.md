@@ -1,5 +1,5 @@
 - [ ] Add ability to save the markdown file to a directory we specify, with the current month and year
     - [ ] check if the directory already exists
     - [ ] make sure file name is unique
-- [ ] Add configurable "sections" for TODO and NOTES
+- [x] Add configurable "sections" for TODO and NOTES
 - [ ] Add ability to do interactive and non-interactive modes
