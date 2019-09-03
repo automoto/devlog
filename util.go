@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/manifoldco/promptui"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"log"
@@ -23,75 +22,27 @@ func archive() {
 
 func handleError(err error) {
 	if err != nil {
-		fmt.Printf("Prompt failed %v\n", err)
+		fmt.Printf("Devlog failed %v\n", err)
 		log.Fatalln(err)
 	}
 }
 
-func promptMoodChoices(label string, choices []string) promptui.Select{
-	return promptui.Select{
-		Label: label,
-		Items: choices,
-	}
-}
-
-func promptInputNoValidate(label string) promptui.Prompt {
-	return promptui.Prompt{
-		Label: label,
-	}
-}
-
-func getAnswers(selectChoices []string, questions []string) map[string]string {
-	questionAnswerPairs := make(map[string]string)
-	labelSelect := "How did you feel? "
-	questionAnswerPairs[labelSelect] = getSelectInput(promptMoodChoices(labelSelect, selectChoices))
-
-	for _, q := range questions {
-		questionAnswerPairs[q] = getInput(promptInputNoValidate(q))
-	}
-	return questionAnswerPairs
-}
-
-func generateMd(selectChoices []string, questions []string) string{
-	out := ""
-	out += "### Dev Log\n"
-	out += fmt.Sprintf("*generated at: %s*", getCurrentDayAndTime())
-	qa := getAnswers(selectChoices, questions)
-	for q, a := range qa {
-		out += fmt.Sprintf("\n##### %s\n%s\n", q, a)
-	}
-	return out
-}
-
-type listOfQuestions struct {
-	Status []string `yaml:status`
+type contentConfig struct {
 	Questions []string `yaml:questions`
+	Other []string `yaml:other`
 }
 
-func (q *listOfQuestions) getQuestions() *listOfQuestions{
+func (q *contentConfig) getContent() *contentConfig {
 	yamlFile, err := ioutil.ReadFile("questions.yaml")
 	handleError(err)
-	err = yaml.Unmarshal(yamlFile, q)
+	err = yaml.UnmarshalStrict(yamlFile, q)
 	handleError(err)
-	fmt.Println(q)
 	return q
 }
 
-func startPrompt() {
-	var questionsToPrompt listOfQuestions
-	questionsToPrompt.getQuestions()
-	output := generateMd(questionsToPrompt.Status, questionsToPrompt.Questions)
+func start() {
+	var questions contentConfig
+	questions.getContent()
+	output := generateMd(questions.Questions, questions.Other)
 	fmt.Println(output)
-}
-
-func getSelectInput(p promptui.Select) string{
-	_, result, err := p.Run()
-	handleError(err)
-	return result
-}
-
-func getInput(p promptui.Prompt) string{
-	result, err2 := p.Run()
-	handleError(err2)
-	return result
 }
