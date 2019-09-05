@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 	"time"
@@ -34,10 +33,23 @@ type contentConfig struct {
 	Other     []string `yaml:other`
 }
 
+func getDefaultQuestions() string {
+	return `
+questions:
+  - "Approximately how long, in minutes, did you design and code for? "
+  - "What did you do? "
+  - "Did you learn anything new? If so, what did you learn? "
+  - "How did your development session go? "
+  - "What could have gone better? "
+  - "What went well? "
+other:
+  - "TODO"
+  - "Notes"
+`
+}
+
 func (q *contentConfig) getContent() *contentConfig {
-	yamlFile, err := ioutil.ReadFile("questions.yaml")
-	handleError(err)
-	err = yaml.UnmarshalStrict(yamlFile, q)
+	err := yaml.UnmarshalStrict([]byte(getDefaultQuestions()), q)
 	handleError(err)
 	return q
 }
