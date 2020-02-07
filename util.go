@@ -36,10 +36,8 @@ type contentConfig struct {
 func getDefaultQuestions() string {
 	return `
 questions:
-  - "Approximately how long, in minutes, did you design and code for? "
-  - "What did you do? "
-  - "Did you learn anything new? If so, what did you learn? "
   - "How did your development session go? "
+  - "Did you learn anything new? If so, what did you learn? "
   - "What could have gone better? "
   - "What went well? "
 other:

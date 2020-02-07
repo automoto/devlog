@@ -11,12 +11,12 @@ import (
 func generateMd(questions []string, otherSections []string) string {
 	out := ""
 	out += "### Dev Log\n"
-	out += fmt.Sprintf("*created: %s*", getCurrentDayAndTime())
+	out += fmt.Sprintf("*created: %s*\n\n", getCurrentDayAndTime())
 	for _, q := range questions {
-		out += fmt.Sprintf("\n##### %s\n", q)
+		out += fmt.Sprintf("\n##### %s\n\n\n", q)
 	}
 	for _, q := range otherSections {
-		out += fmt.Sprintf("\n##### %s\n", q)
+		out += fmt.Sprintf("\n##### %s\n\n\n", q)
 	}
 	return out
 }
