@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"gopkg.in/yaml.v2"
 	"io"
+	"io/ioutil"
 	"log"
 	"os"
 	"time"
@@ -50,10 +51,19 @@ other:
 `
 }
 
-func (q *contentConfig) getContent() *contentConfig {
-	err := yaml.UnmarshalStrict([]byte(getDefaultQuestions()), q)
+func (c *contentConfig) getContent() *contentConfig {
+	logPath := getLogContentPath()
+	if len(logPath) >=1 {
+		yamlFile, err := ioutil.ReadFile(logPath)
+		handleError(err)
+		err = yaml.Unmarshal(yamlFile, c)
+		handleError(err)
+		return c
+	}
+
+	err := yaml.UnmarshalStrict([]byte(getDefaultQuestions()), c)
 	handleError(err)
-	return q
+	return c
 }
 
 func getOutputPath() string {

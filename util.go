@@ -27,9 +27,9 @@ func handleError(err error) {
 }
 
 func start() {
-	var questions contentConfig
-	questions.getContent()
-	output := generateMd(questions.Questions, questions.Other)
+	var content contentConfig
+	content.getContent()
+	output := generateMd(content.Questions, content.Other)
 	file, err := os.Create(getFullOutputPath())
 	handleError(err)
 	saveFile(output, file)
