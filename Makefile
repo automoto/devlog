@@ -14,5 +14,8 @@ move-to-bin:
 install:
 	make build && make move-to-bin
 
+lint:
+	golint
+
 test:
 	go test
