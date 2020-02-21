@@ -7,7 +7,7 @@ build:
 	@echo "Done."
 
 move-to-bin:
-	@echo "Moving binary to /usr/local/bin"
+	@echo "Moving binary to /usr/local/bin...requires sudo"
 	@sudo cp devlog /usr/local/bin
 	@echo "Done."
 
