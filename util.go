@@ -5,8 +5,6 @@ import (
 	"log"
 	"os"
 	"time"
-
-	"gopkg.in/yaml.v2"
 )
 
 func getCurrentDayAndTime() string {
@@ -26,30 +24,6 @@ func handleError(err error) {
 		fmt.Printf("Devlog failed %v\n", err)
 		log.Fatalln(err)
 	}
-}
-
-type contentConfig struct {
-	Questions []string `yaml:questions`
-	Other     []string `yaml:other`
-}
-
-func getDefaultQuestions() string {
-	return `
-questions:
-  - "How did your development session go? "
-  - "Did you learn anything new? If so, what did you learn? "
-  - "What could have gone better? "
-  - "What went well? "
-other:
-  - "TODO"
-  - "Notes"
-`
-}
-
-func (q *contentConfig) getContent() *contentConfig {
-	err := yaml.UnmarshalStrict([]byte(getDefaultQuestions()), q)
-	handleError(err)
-	return q
 }
 
 func start() {

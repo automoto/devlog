@@ -1,6 +1,9 @@
 .PHONY:
 	build move-to-bin install
 
+dep:
+	GO111MODULE=on go mod vendor
+
 build:
 	@echo "Building the binary..."
 	@go build -o devlog main.go output.go util.go
