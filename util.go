@@ -26,7 +26,8 @@ func handleError(err error) {
 	}
 }
 
-func start() {
+func start(templatePath string, outputDirPath string) {
+	fmt.Println(templatePath, outputDirPath)
 	var content contentConfig
 	content.getContent()
 	output := generateMd(content.Questions, content.Other)
