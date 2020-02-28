@@ -1,6 +1,7 @@
 .idea/
 main
 devlog
+devlog_*
 
 # Binaries for programs and plugins
 *.exe

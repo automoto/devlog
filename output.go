@@ -25,7 +25,10 @@ func generateMd(questions []string, otherSections []string) string {
 	return out
 }
 
-func getLogContentPath() string {
+func getLogContentPath(templateFilePath string) string {
+	if len(templateFilePath) > 1 {
+		return templateFilePath
+	}
 	path := os.Getenv("DEVLOG_LOG_CONTENT")
 	if len(path) > 1 {
 		return path
@@ -51,8 +54,8 @@ other:
 `
 }
 
-func (c *contentConfig) getContent() *contentConfig {
-	logPath := getLogContentPath()
+func (c *contentConfig) getContent(templateFilePath string) *contentConfig {
+	logPath := getLogContentPath(templateFilePath)
 	if len(logPath) >=1 {
 		yamlFile, err := ioutil.ReadFile(logPath)
 		handleError(err)
@@ -66,7 +69,10 @@ func (c *contentConfig) getContent() *contentConfig {
 	return c
 }
 
-func getOutputPath() string {
+func getOutputPath(outputFilePath string) string {
+	if len(outputFilePath) > 1{
+		return outputFilePath
+	}
 	path := os.Getenv("DEVLOG_DIR")
 	if len(path) > 1 {
 		return path
@@ -74,8 +80,8 @@ func getOutputPath() string {
 	return "."
 }
 
-func getFullOutputPath() string {
-	return fmt.Sprintf("%s/%s", getOutputPath(), generateFileName())
+func getFullOutputPath(outputFilePath string) string {
+	return fmt.Sprintf("%s/%s", getOutputPath(outputFilePath), generateFileName())
 }
 
 func generateFileName() string {
@@ -84,8 +90,8 @@ func generateFileName() string {
 		now.Minute(), now.Second())
 }
 
-func saveFile(outputMd string, file io.Writer) {
+func saveFile(outputMd string, file io.Writer, outputFilePath string) {
 	_, err := fmt.Fprint(file, outputMd)
 	handleError(err)
-	log.Printf("Successfully saved dev log to directory: %s", getOutputPath())
+	log.Printf("Successfully saved dev log to directory: %s", getOutputPath(outputFilePath))
 }
