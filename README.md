@@ -29,16 +29,18 @@ DEVLOG_DIR="/home/your_username/other_directory" devlog
 #### Build and Install
 simply clone this repository and run the following command to build the binary:
 ```shell
-go build -o devlog main.go output.go util.go util_interactive.go
+make build
 ```
 
 This will create a binary locally you can run commands against already, like so:
 
 `./devlog`
 
-Copy the binary to your local bin to access the CLI anywhere.
+Build and copy the binary to your local bin to access the CLI anywhere.
 
-`sudo cp devlog /usr/local/bin`
+```shell
+make install
+```
 
 Now you can run the command `devlog` from anywhere to generate a new devlog file:
 
