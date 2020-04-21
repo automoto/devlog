@@ -44,10 +44,10 @@ type contentConfig struct {
 func getDefaultQuestions() string {
 	return `
 questions:
-  - "How did your development session go? "
-  - "Did you learn anything new? If so, what did you learn? "
-  - "What could have gone better? "
-  - "What went well? "
+  - "How did your development session go?"
+  - "Did you learn anything new? If so, what did you learn?"
+  - "What could have gone better?"
+  - "What went well?"
 other:
   - "TODO"
   - "Notes"
