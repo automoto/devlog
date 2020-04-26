@@ -35,12 +35,12 @@ jobs:
   release:
     docker:
       - image: circleci/golang:1.13
-      working_directory: /go/src/github.com/{{ORG_NAME}}/{{REPO_NAME}}
-      steps:
-        - checkout
-        - run:
-            name: Install goreleaser
-            command: 'curl -sL https://git.io/goreleaser | bash'
+    working_directory: /go/src/github.com/{{ORG_NAME}}/{{REPO_NAME}}
+    steps:
+      - checkout
+      - run:
+          name: Install goreleaser
+          command: 'curl -sL https://git.io/goreleaser | bash'
 workflows:
   version: 2
   commit:
