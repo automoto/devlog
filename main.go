@@ -5,8 +5,8 @@ import (
 )
 
 func main() {
-	outputFlagPtr := flag.String("p", "", "path to the directory where devlog will save notes to")
-	templateFlagPtr := flag.String("t", "", "template for your devlog notes")
+	outputFlagPtr := flag.String("f", "", "path to the directory where devlog will save notes to")
+	templateFlagPtr := flag.String("c", "", "config for your devlog notes")
 	flag.Parse()
 	start(*templateFlagPtr, *outputFlagPtr)
 }

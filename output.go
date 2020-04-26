@@ -70,12 +70,12 @@ func (c *contentConfig) getContent(templateFilePath string) *contentConfig {
 }
 
 func getOutputPath(outputFilePath string) string {
-	if len(outputFilePath) > 1{
+	if len(outputFilePath) >= 1{
 		return outputFilePath
 	}
-	path := os.Getenv("DEVLOG_DIR")
-	if len(path) > 1 {
-		return path
+	envVarPath := os.Getenv("DEVLOG_DIR")
+	if len(envVarPath) >= 1 {
+		return envVarPath
 	}
 	return "."
 }

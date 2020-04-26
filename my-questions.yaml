@@ -3,5 +3,6 @@ questions:
   - "Did you learn anything new? If so, what did you learn? "
   - "What could have gone better? "
   - "What went well? "
-other:
+extra-sections:
   - "Notes"
+  - "Dude"
