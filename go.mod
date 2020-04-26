@@ -1,6 +1,6 @@
 module github.com/devlog
 
-go 1.12
+go 1.13
 
 require (
 	github.com/alecthomas/gometalinter v3.0.0+incompatible // indirect
