@@ -6,7 +6,7 @@ dep:
 
 build:
 	@echo "Building the binary..."
-	@go build -o devlog main.go output.go util.go
+	@go build -o devlog .
 	@echo "Done."
 
 move-to-bin:
