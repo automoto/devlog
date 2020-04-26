@@ -15,7 +15,7 @@ Devlog prioritizes:
 #### Configure
 By default `devlog` will generate a file in the current directory unless specify the directory via setting the environment variable `DEVLOG_DIR`.
 
-*configuration using environment variables:*
+*Configuration using environment variables:*
 
 Set the directory to save devlog files to:
 ```
@@ -28,7 +28,8 @@ You can override this by temporarily setting the value when calling devlog
 DEVLOG_DIR="/home/your_username/other_directory" devlog
 ```
 
-*configuration using command line options:*
+*Configuration using command line options:*
+
 You can also pass in configurations via command line options. Command line options take precedence over configurations set via environment variables.
 ```
 devlog -p "/home/your_username/your_directory" -c "/home/your_username/your_directory/custom-config.yaml" 
