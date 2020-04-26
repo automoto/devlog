@@ -18,7 +18,7 @@ install:
 	make build && make move-to-bin
 
 lint:
-	golint
+	golint pkg/
 
 test:
 	go test

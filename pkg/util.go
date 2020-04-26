@@ -26,6 +26,7 @@ func handleError(err error) {
 	}
 }
 
+// Start is the global executor that pulls in the configuration settings, generates the content and saves the file.
 func Start(templatePath string, outputDirPath string) {
 	fmt.Println(templatePath, outputDirPath)
 	var content contentConfig

@@ -20,7 +20,30 @@ jobs:
     working_directory: /go/src/github.com/{{ORG_NAME}}/{{REPO_NAME}}
     steps:
       - checkout
-
-      # specify any bash command here prefixed with `run: `
-      - run: make dep
-      - run: make build
+      - run:
+          name: Install dependencies
+          command: 'make dep'
+      - run:
+          name: Lint
+          command: 'make lint'
+      - run:
+          name: Test
+          command: 'make test'
+      - run:
+          name: Build the go package
+          command: 'make build'
+  release:
+    docker:
+      - image: circleci/golang:1.13
+      working_directory: /go/src/github.com/{{ORG_NAME}}/{{REPO_NAME}}
+      steps:
+        - checkout
+        - run:
+            name: Install goreleaser
+            command: 'curl -sL https://git.io/goreleaser | bash'
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - build
+      - release
