@@ -43,11 +43,9 @@ jobs:
           command: 'curl -sL https://git.io/goreleaser | bash'
 workflows:
   version: 2
-  build-branch:
-    jobs:
-      - build
   build-deploy:
     jobs:
+      - build
       - release:
           requires:
             - build
