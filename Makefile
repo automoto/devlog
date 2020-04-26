@@ -1,5 +1,5 @@
 .PHONY:
-	build move-to-bin install
+	build move-to-bin install test lint dep test-ci
 
 dep:
 	GO111MODULE=on go mod vendor
@@ -22,3 +22,6 @@ lint:
 
 test:
 	go test
+
+test-ci:
+	gotestsum --junitfile results.xml

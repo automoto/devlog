@@ -28,10 +28,12 @@ jobs:
           command: 'go get -u golang.org/x/lint/golint && make lint'
       - run:
           name: Test
-          command: 'make test'
+          command: 'make test-ci'
       - run:
           name: Build the go package
           command: 'make build'
+      - store_test_results: # upload test results for display in Test Summary
+          path: results.xml
   release:
     docker:
       - image: circleci/golang:1.13
