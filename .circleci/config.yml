@@ -54,9 +54,9 @@ workflows:
             tags:
               only: /v[0-9]+(\.[0-9]+)*(-.*)*/
       - release:
+          requires:
+            - build
           filters:
-            requires:
-              - build
             branches:
               ignore: /.*/
             tags:
