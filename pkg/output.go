@@ -1,13 +1,14 @@
-package main
+package pkg
 
 import (
 	"fmt"
-	"gopkg.in/yaml.v2"
 	"io"
 	"io/ioutil"
 	"log"
 	"os"
 	"time"
+
+	"gopkg.in/yaml.v2"
 )
 
 func generateMd(questions []string, otherSections []string) string {

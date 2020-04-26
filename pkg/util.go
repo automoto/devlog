@@ -1,4 +1,4 @@
-package main
+package pkg
 
 import (
 	"fmt"
@@ -26,7 +26,7 @@ func handleError(err error) {
 	}
 }
 
-func start(templatePath string, outputDirPath string) {
+func Start(templatePath string, outputDirPath string) {
 	fmt.Println(templatePath, outputDirPath)
 	var content contentConfig
 	content.getContent(templatePath)
