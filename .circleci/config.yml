@@ -44,9 +44,6 @@ jobs:
           name: Install and run goreleaser
           command: 'curl -sL https://git.io/goreleaser | bash'
 workflows:
-  build:
-    jobs:
-      - build
   build-deploy:
     jobs:
       - build:
