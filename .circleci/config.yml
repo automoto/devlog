@@ -48,7 +48,6 @@ workflows:
       - build
   build-deploy:
     jobs:
-      - build
       - release:
           requires:
             - build
