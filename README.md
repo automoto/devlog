@@ -13,7 +13,7 @@ Devlog prioritizes:
 #### Configure
 By default `devlog` will generate a file in the current directory unless specify the directory via setting the environment variable `DEVLOG_DIR`.
 
-*examples:*
+*configuration using environment variables:*
 
 Set the directory to save devlog files to:
 ```
@@ -26,6 +26,13 @@ You can override this by temporarily setting the value when calling devlog
 DEVLOG_DIR="/home/your_username/other_directory" devlog
 ```
 
+*configuration using command line options:*
+You can also pass in configurations via command line options. Command line options take precedence over configurations set via environment variables.
+```
+devlog -p "/home/your_username/your_directory" -c "/home/your_username/your_directory/custom-config.yaml" 
+```
+To view all the possible command line options, just pass in the `-h` command line option for help e.g. `devlog -h` 
+
 #### Build and Install
 simply clone this repository and run the following command to build the binary:
 ```shell
@@ -36,7 +43,7 @@ This will create a binary locally you can run commands against already, like so:
 
 `./devlog`
 
-Build and copy the binary to your local bin to access the CLI anywhere.
+Build and copy the binary to your local bin to access the CLI anywhere. It will likely prompt you for a password since it's needed to install things to your `/usr/local/bin`.
 
 ```shell
 make install

@@ -26,19 +26,19 @@ func generateMd(questions []string, otherSections []string) string {
 }
 
 func getLogContentPath(templateFilePath string) string {
-	if len(templateFilePath) > 1 {
+	if len(templateFilePath) >= 1 {
 		return templateFilePath
 	}
 	path := os.Getenv("DEVLOG_LOG_CONTENT")
-	if len(path) > 1 {
+	if len(path) >= 1 {
 		return path
 	}
 	return ""
 }
 
 type contentConfig struct {
-	Questions []string `yaml:questions`
-	Other     []string `yaml:other`
+	Questions []string `yaml:"questions"`
+	Other     []string `yaml:"other_section"`
 }
 
 func getDefaultQuestions() string {
@@ -48,8 +48,7 @@ questions:
   - "Did you learn anything new? If so, what did you learn?"
   - "What could have gone better?"
   - "What went well?"
-other:
-  - "TODO"
+other_section:
   - "Notes"
 `
 }
