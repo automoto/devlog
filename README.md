@@ -1,4 +1,6 @@
 ### Dev Log
+[![CircleCI](https://circleci.com/gh/automoto/devlog.svg?style=svg)](https://circleci.com/gh/automoto/devlog)
+
 *The software development log to reflect and capture your thoughts, progress and TODOs.*
 
 Devlog's goal is to help you create a "Development Log" to reflect and generate notes after a coding session.
