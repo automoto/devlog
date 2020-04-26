@@ -41,7 +41,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install goreleaser
+          name: Install and run goreleaser
           command: 'curl -sL https://git.io/goreleaser | bash'
 workflows:
   version: 2
@@ -53,6 +53,6 @@ workflows:
             - build
           filters:
             branches:
-              only: master
+              ignore: /.*/
             tags:
               only: /v[0-9]+(\.[0-9]+)*(-.*)*/
