@@ -33,8 +33,12 @@ devlog -p "/home/your_username/your_directory" -c "/home/your_username/your_dire
 ```
 To view all the possible command line options, just pass in the `-h` command line option for help e.g. `devlog -h` 
 
-#### Build and Install
-simply clone this repository and run the following command to build the binary:
+#### Build and Install Locally
+
+*Prerequisites:*
+  - go lang version 1.13
+
+Simply clone this repository and run the following command to build the binary:
 ```shell
 make build
 ```
@@ -55,3 +59,6 @@ Now you can run the command `devlog` from anywhere to generate a new devlog file
 devlog
 2019/09/02 22:00:32 Successfully saved dev log to directory: /home/dev/null
 ```
+
+#### Releases
+Currently working on building binaries automatically and uploading them as releases to ease installation.
