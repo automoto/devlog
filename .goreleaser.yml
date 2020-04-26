@@ -8,7 +8,6 @@ builds:
 - env:
   - CGO_ENABLED=0
   - GO111MODULE=on
-- binary: devlog
 archives:
 - replacements:
     darwin: Darwin
