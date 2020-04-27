@@ -33,7 +33,7 @@ jobs:
           name: Build the go package
           command: 'make build'
       - store_test_results: # upload test results for display in Test Summary
-          path: results.xml
+          path: pkg
   release:
     docker:
       - image: circleci/golang:1.13
