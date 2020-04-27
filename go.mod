@@ -11,6 +11,7 @@ require (
 	github.com/mattn/go-colorable v0.1.2 // indirect
 	github.com/nicksnyder/go-i18n v1.10.1 // indirect
 	github.com/pelletier/go-toml v1.4.0 // indirect
+	github.com/stretchr/testify v1.2.2
 	golang.org/x/crypto v0.0.0-20200221170553-0f24fbd83dfb // indirect
 	golang.org/x/lint v0.0.0-20200130185559-910be7a94367 // indirect
 	golang.org/x/mod v0.2.0 // indirect
