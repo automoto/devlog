@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
-	"log"
 	"os"
 	"strings"
 	"time"
@@ -105,5 +104,6 @@ func generateFileName() string {
 func saveFile(outputMd string, file io.Writer, outputFilePath string) {
 	_, err := fmt.Fprint(file, outputMd)
 	handleError(err)
-	log.Printf("Successfully saved dev log to directory: \n%s", getFullOutputPath(outputFilePath))
+	fmt.Println("Successfully saved dev log to path: ")
+	fmt.Printf(getFullOutputPath(outputFilePath))
 }
