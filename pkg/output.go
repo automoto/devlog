@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strings"
 	"time"
 
 	"gopkg.in/yaml.v2"
@@ -69,6 +70,17 @@ func (c *contentConfig) getContent(templateFilePath string) *contentConfig {
 	return c
 }
 
+func getTrimmedOutput(output string) string {
+	return strings.Trim(output, " ")
+}
+
+func checkStdOut(output string) bool {
+	trimmedOutput := getTrimmedOutput(output)
+	lowerOutPut := strings.ToLower(trimmedOutput)
+	contains := strings.Contains(lowerOutPut, "stdout")
+	return contains
+}
+
 func getOutputPath(outputFilePath string) string {
 	if len(outputFilePath) >= 1{
 		return outputFilePath
@@ -86,12 +98,12 @@ func getFullOutputPath(outputFilePath string) string {
 
 func generateFileName() string {
 	now := time.Now()
-	return fmt.Sprintf("devlog_%d_%d_%d_%d_%d_%d.md", now.Day(), now.Month(), now.Year(), now.Hour(),
+	return fmt.Sprintf("devlog_%d_%d_%d_%d_%d_%d.md", now.Month(), now.Day(), now.Year(), now.Hour(),
 		now.Minute(), now.Second())
 }
 
 func saveFile(outputMd string, file io.Writer, outputFilePath string) {
 	_, err := fmt.Fprint(file, outputMd)
 	handleError(err)
-	log.Printf("Successfully saved dev log to directory: %s", getOutputPath(outputFilePath))
+	log.Printf("Successfully saved dev log to directory: \n%s", getFullOutputPath(outputFilePath))
 }
