@@ -20,7 +20,7 @@ download() {
   }
   FILE_VERSION="$(echo "$VERSION" | tr -d v)"
   FINAL_URL="$RELEASES_URL/download/$VERSION/devlog_${FILE_VERSION}_$(uname -s)_$(uname -m).tar.gz"
-  echo "$FINAL_URL"
+  echo "Downloading latest release from: \n$FINAL_URL"
   rm -f "$TAR_FILE"
   curl -s -L -o "$TAR_FILE" \
     "$FINAL_URL"
@@ -28,4 +28,6 @@ download() {
 
 download
 tar -xf "$TAR_FILE" -C "$TMPDIR"
-"${TMPDIR}/devlog" "$@"
+echo "devlog installation script complete."
+# executes devlog, maybe remove
+# "${TMPDIR}/devlog" "$@"
