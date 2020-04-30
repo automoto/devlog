@@ -1,5 +1,5 @@
 .PHONY:
-	build move-to-bin install test lint dep test-ci
+	build move-to-bin install test lint dep test-ci latest-release
 
 dep:
 	GO111MODULE=on go mod vendor
@@ -25,3 +25,6 @@ test:
 
 test-ci:
 	gotestsum --junitfile pkg/results.xml
+
+latest-release:
+	curl -sL https://api.github.com/repos/automoto/devlog/releases/latest | jq -r '.assets[].browser_download_url'

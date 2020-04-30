@@ -28,11 +28,14 @@ func handleError(err error) {
 
 // Start is the global executor that pulls in the configuration settings, generates the content and saves the file.
 func Start(templatePath string, outputDirPath string) {
-	fmt.Println(templatePath, outputDirPath)
 	var content contentConfig
 	content.getContent(templatePath)
 	output := generateMd(content.Questions, content.Other)
-	file, err := os.Create(getFullOutputPath(outputDirPath))
-	handleError(err)
-	saveFile(output, file, outputDirPath)
+	if checkStdOut(outputDirPath) {
+		fmt.Printf("%s", output)
+	} else {
+		file, err := os.Create(getFullOutputPath(outputDirPath))
+		handleError(err)
+		saveFile(output, file, outputDirPath)
+	}
 }
