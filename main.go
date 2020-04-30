@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 
-	"github.com/devlog/pkg"
+	"github.com/automoto/devlog/pkg"
 )
 
 func main() {
