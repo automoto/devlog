@@ -12,6 +12,22 @@ Devlog prioritizes:
 - Open standards over closed. Keep your notes in markdown files that can be queried for easily in a directory, not locked into some vendors service or custom formatting standards.
 - Ease of use and simplicity. This is not meant to be a complex static content generator. It strives to be an easy to configure and create log files to fill out in a text editor of your choice.
 
+#### Install
+The easiest way to install devlog is to use the provided installation script
+``` sh
+wget https://raw.githubusercontent.com/automoto/devlog/master/scripts/get-devlog.sh
+# you're welcome to examine the script, it just grabs the latest release from github for your OS and installs it
+sh get-devlog.sh
+```
+
+If you prefer to install it yourself, you can get the latest release binary directly from github https://github.com/automoto/devlog/releases and extract it to your `/usr/local/bin`.
+
+#### Install Using Go
+
+If you already have an updated verison of go lang, installing via go is easy:
+`go get -u github.com/automoto/devlog/`
+
+
 #### Configure
 By default `devlog` will generate a file in the current directory unless specify the directory via setting the environment variable `DEVLOG_DIR`.
 
@@ -28,7 +44,7 @@ You can override this by temporarily setting the value when calling devlog
 DEVLOG_DIR="/home/your_username/other_directory" devlog
 ```
 
-*Configuration using command line options:*
+##### Configuration using command line options:
 
 You can also pass in configurations via command line options. Command line options take precedence over configurations set via environment variables.
 ```
@@ -36,7 +52,7 @@ devlog -p "/home/your_username/your_directory" -c "/home/your_username/your_dire
 ```
 To view all the possible command line options, just pass in the `-h` command line option for help e.g. `devlog -h` 
 
-#### Build and Install Locally
+#### Building Locally
 
 *Prerequisites:*
   - go lang version 1.13
@@ -62,6 +78,3 @@ Now you can run the command `devlog` from anywhere to generate a new devlog file
 devlog
 2019/09/02 22:00:32 Successfully saved dev log to directory: /home/dev/null
 ```
-
-#### Releases
-Currently working on building binaries automatically and uploading them as releases to ease installation.
