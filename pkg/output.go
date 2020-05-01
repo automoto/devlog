@@ -105,5 +105,5 @@ func saveFile(outputMd string, file io.Writer, outputFilePath string) {
 	_, err := fmt.Fprint(file, outputMd)
 	handleError(err)
 	fmt.Println("Successfully saved dev log to path: ")
-	fmt.Printf(getFullOutputPath(outputFilePath))
+	fmt.Printf("%s\n", getFullOutputPath(outputFilePath))
 }
