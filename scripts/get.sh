@@ -29,5 +29,3 @@ download() {
 download
 tar -xf "$TAR_FILE" -C "$TMPDIR"
 echo "devlog installation script complete."
-# executes devlog, maybe remove
-# "${TMPDIR}/devlog" "$@"
