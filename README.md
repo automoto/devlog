@@ -5,8 +5,12 @@
 
 Devlog's goal is to help you create a "Development Log" to reflect and generate notes during and after a coding session.
 
-Devlog generates a simple markdown file to a directory you specify. This gives us alot of flexibility, you can save your devlog files into a git repository or to a cloud file service directory like
-dropbox, google drive, or one drive for automated syncing and backup.
+#### What is a Development Log?
+
+
+#### What is Devlog?
+
+Devlog generates a time stamped, simple, "development log" file to a directory you specify. This gives us alot of flexibility, you can save your devlog files into a git repository or to a cloud file service directory like dropbox, google drive, or one drive for automated syncing and backup.
 
 Devlog prioritizes:
 - Open standards over closed. Keep your notes in markdown files that can be queried for easily in a directory, not locked into some vendors service or custom formatting standards.
@@ -31,9 +35,21 @@ If you already have an updated verison of go lang, installing via go is easy:
 #### Using Devlog
 Ideally you will run Devlog during or towards the end of your development session and it will be filled out with your notes and answers to the questions when your finished. The "Notes" seciton at the bottom is great for TODOs or other information you want to keep. [Here is an example of a filled out devlog](https://gist.github.com/automoto/15e037d40258df1b8c2394ba1bae2c07). 
 
-Devlog is designed to automate generating a development log markdown file for you to fill out in your favorite text editor. Once you have installed it, just type `devlog` and it will generate a Devlog markdown document. By default, it will return the path of the document you created so you can pass this into a text editor easily.
+Devlog is designed to automate generating a development log markdown file for you to fill out in your favorite text editor. Once you have installed it, just type `devlog` and it will generate a time stamped markdown document. 
 
 ```shell
+# Generate a markdown document log in the current directory
+devlog
+
+# Output the log document to your terminal instead of a document
+devlog -p 'stdout'
+
+```
+
+By default, it returns the path of the document created so you can input this into a text editor easily. Here is a way you can generate a dev log document and open it in some popular text editors: 
+
+```shell
+
 # create a new Devlog file and open it in SublimeText
 subl `./devlog | tail -n 1`
 
