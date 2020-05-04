@@ -7,12 +7,14 @@ import (
 	"time"
 )
 
-func getCurrentDayAndTime() string {
-	return time.Now().Format("2006-01-02 15:04:05")
+type Time interface {
+	GetCurrentDayAndTime() time.Time
 }
 
-func getCurrentDay() string {
-	return time.Now().Format("2006-01-02")
+type CurrentTime struct {}
+
+func (c CurrentTime) GetCurrentDayAndTime() string {
+	return time.Now().Format("2006-01-02 15:04:05")
 }
 
 func archive() {
@@ -21,14 +23,14 @@ func archive() {
 
 func handleError(err error) {
 	if err != nil {
-		fmt.Printf("Devlog failed %v\n", err)
 		log.Fatalln(err)
+		panic(err)
 	}
 }
 
 // Start is the global executor that pulls in the configuration settings, generates the content and saves the file.
 func Start(templatePath string, outputDirPath string) {
-	var content contentConfig
+	var content DevLogConfig
 	content.getContent(templatePath)
 	output := generateMd(content.Questions, content.Other)
 	if checkStdOut(outputDirPath) {

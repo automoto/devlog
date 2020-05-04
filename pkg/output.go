@@ -1,72 +1,53 @@
 package pkg
 
 import (
+	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"strings"
+	"text/template"
 	"time"
-
-	"gopkg.in/yaml.v2"
 )
 
-func generateMd(questions []string, otherSections []string) string {
-	out := ""
-	out += "### Dev Log\n"
-	out += fmt.Sprintf("*created: %s*\n\n", getCurrentDayAndTime())
-	for _, q := range questions {
-		out += fmt.Sprintf("\n##### %s\n\n\n", q)
-	}
-	if len(otherSections) >= 1 {
-		for _, q := range otherSections {
-			out += fmt.Sprintf("\n##### %s\n\n\n", q)
-		}
-	}
-	return out
+// interface for content
+
+type TextContent interface {
+	GenerateMarkdown() string
 }
 
-func getLogContentPath(templateFilePath string) string {
-	if len(templateFilePath) >= 1 {
-		return templateFilePath
+type TemplateReader interface {
+	ReadTemplate() (*bytes.Buffer, error)
+}
+
+type Content struct {
+	CurrentTime time.Time
+	TemplatePath string
+}
+
+func (c Content) ReadTemplate() (*bytes.Buffer, error){
+	buf := new(bytes.Buffer)
+	tpl := template.Must(template.ParseFiles(c.TemplatePath))
+	err := tpl.Execute(buf, c)
+	return buf, err
+}
+
+func (c Content) GenerateMarkdown() string {
+		buff, err := c.ReadTemplate(); if err != nil {
+			handleError(err)
+		}
+		return buff.String()
+}
+
+func (c Content) GetTemplatePath() string {
+	if len(c.TemplatePath) >= 1 {
+		return c.TemplatePath
 	}
 	path := os.Getenv("DEVLOG_LOG_CONTENT")
 	if len(path) >= 1 {
 		return path
 	}
 	return ""
-}
-
-type contentConfig struct {
-	Questions []string `yaml:"questions"`
-	Other     []string `yaml:"other_section"`
-}
-
-func getDefaultQuestions() string {
-	return `
-questions:
-  - "How did your development session go?"
-  - "Did you learn anything new? If so, what did you learn?"
-  - "What could have gone better?"
-  - "What went well?"
-other_section:
-  - "Notes"
-`
-}
-
-func (c *contentConfig) getContent(templateFilePath string) *contentConfig {
-	logPath := getLogContentPath(templateFilePath)
-	if len(logPath) >=1 {
-		yamlFile, err := ioutil.ReadFile(logPath)
-		handleError(err)
-		err = yaml.Unmarshal(yamlFile, c)
-		handleError(err)
-		return c
-	}
-
-	err := yaml.UnmarshalStrict([]byte(getDefaultQuestions()), c)
-	handleError(err)
-	return c
 }
 
 func getTrimmedOutput(output string) string {
@@ -107,3 +88,24 @@ func saveFile(outputMd string, file io.Writer, outputFilePath string) {
 	fmt.Println("Successfully saved dev log to path: ")
 	fmt.Printf("%s\n", getFullOutputPath(outputFilePath))
 }
+
+//TODO: add back .yaml based config for default options
+//type DevLogConfig struct {
+//	Questions []string `yaml:"questions"`
+//	Other     []string `yaml:"other_section"`
+//}
+
+//func (c *DevLogConfig) getConfig(configFilePath string) *DevLogConfig {
+//	logPath := getLogContentPath(templateFilePath)
+//	if len(logPath) >=1 {
+//		yamlFile, err := ioutil.ReadFile(logPath)
+//		handleError(err)
+//		err = yaml.Unmarshal(yamlFile, c)
+//		handleError(err)
+//		return c
+//	}
+//
+//	err := yaml.UnmarshalStrict([]byte(getDefaultQuestions()), c)
+//	handleError(err)
+//	return c
+//}
