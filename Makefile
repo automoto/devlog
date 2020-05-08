@@ -21,7 +21,7 @@ lint:
 	golint pkg/
 
 test:
-	go test ./...
+	go test -v ./...
 
 test-ci:
 	gotestsum --junitfile pkg/results.xml

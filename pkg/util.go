@@ -3,7 +3,6 @@ package pkg
 import (
 	"fmt"
 	"log"
-	"os"
 	"time"
 )
 
@@ -30,14 +29,14 @@ func handleError(err error) {
 
 // Start is the global executor that pulls in the configuration settings, generates the content and saves the file.
 func Start(templatePath string, outputDirPath string) {
-	var content DevLogConfig
-	content.getContent(templatePath)
-	output := generateMd(content.Questions, content.Other)
-	if checkStdOut(outputDirPath) {
-		fmt.Printf("%s", output)
-	} else {
-		file, err := os.Create(getFullOutputPath(outputDirPath))
-		handleError(err)
-		saveFile(output, file, outputDirPath)
-	}
+	//var content DevLogConfig
+	//content.getContent(templatePath)
+	//output := generateMd(content.Questions, content.Other)
+	//if checkStdOut(outputDirPath) {
+	//	fmt.Printf("%s", output)
+	//} else {
+	//	file, err := os.Create(getFullOutputPath(outputDirPath))
+	//	handleError(err)
+	//	saveFile(output, file, outputDirPath)
+	//}
 }

@@ -3,17 +3,26 @@ package pkg
 import (
 	"github.com/stretchr/testify/assert"
 	"testing"
+	"time"
 )
 
-func TestGenerateMd(t *testing.T) {
-	testQuestions := []string{"question 1", "question 2"}
-	otherSections := []string{"section 1", "section 2"}
-	t.Run("Markdown gets generated correctly", func(t *testing.T) {
-		got := generateMd(testQuestions, otherSections)
-		assert.NotEmpty(t, got)
-		assert.Contains(t, got, "##### section 1")
-		assert.Contains(t, got, "##### section 2")
-		assert.Contains(t, got, "##### question 1")
-		assert.Contains(t, got, "##### question 2")
+func TestReadTemplate(t *testing.T) {
+	c := Content{
+		CurrentTime:  time.Now(),
+		TemplatePath: "",
+	}
+	t.Run("Template gets generated correctly with the default template", func(t *testing.T) {
+		got, err := c.ReadTemplate()
+		sg := got.String()
+		assert.NoError(t, err)
+		assert.Contains(t, sg, "### Development Log")
+		assert.Contains(t, sg, "##### What could have gone better?")
+	})
+	t.Run("Template gets generated correctly with the default template", func(t *testing.T) {
+		c.TemplatePath = "test_template.gohtml"
+		got, err := c.ReadTemplate()
+		sg := got.String()
+		assert.NoError(t, err)
+		assert.Contains(t, sg, "### Test Log")
 	})
 }

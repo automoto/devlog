@@ -27,7 +27,11 @@ type Content struct {
 
 func (c Content) ReadTemplate() (*bytes.Buffer, error){
 	buf := new(bytes.Buffer)
-	tpl := template.Must(template.ParseFiles(c.TemplatePath))
+	tpl := template.Must(template.New("devlog").Parse(defaultTemplate))
+
+	if len(c.TemplatePath) > 1 {
+		tpl = template.Must(template.ParseFiles(c.TemplatePath))
+	}
 	err := tpl.Execute(buf, c)
 	return buf, err
 }
