@@ -8,21 +8,24 @@ import (
 
 func TestReadTemplate(t *testing.T) {
 	c := Content{
-		CurrentTime:  time.Now(),
-		TemplatePath: "",
+		FormattedCurrentTime: time.Now().Format("2006-01-02 15:04:05"),
+		TemplatePath:         "",
 	}
-	t.Run("Template gets generated correctly with the default template", func(t *testing.T) {
+	t.Run("Template gets generated with the default template", func(t *testing.T) {
 		got, err := c.ReadTemplate()
 		sg := got.String()
 		assert.NoError(t, err)
 		assert.Contains(t, sg, "### Development Log")
 		assert.Contains(t, sg, "##### What could have gone better?")
+		assert.Contains(t, sg, c.FormattedCurrentTime)
 	})
-	t.Run("Template gets generated correctly with the default template", func(t *testing.T) {
+	//TODO: More of an integration test here, consider mocking the file system and moving this out to a separate integration test
+	t.Run("Template gets generated with the default template", func(t *testing.T) {
 		c.TemplatePath = "test_template.gohtml"
 		got, err := c.ReadTemplate()
 		sg := got.String()
 		assert.NoError(t, err)
 		assert.Contains(t, sg, "### Test Log")
+		assert.Contains(t, sg, c.FormattedCurrentTime)
 	})
 }

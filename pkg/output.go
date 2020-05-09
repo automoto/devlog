@@ -21,11 +21,11 @@ type TemplateReader interface {
 }
 
 type Content struct {
-	CurrentTime time.Time
-	TemplatePath string
+	FormattedCurrentTime string
+	TemplatePath         string
 }
 
-func (c Content) ReadTemplate() (*bytes.Buffer, error){
+func (c Content) ReadTemplate() (*bytes.Buffer, error) {
 	buf := new(bytes.Buffer)
 	tpl := template.Must(template.New("devlog").Parse(defaultTemplate))
 
@@ -37,10 +37,11 @@ func (c Content) ReadTemplate() (*bytes.Buffer, error){
 }
 
 func (c Content) GenerateMarkdown() string {
-		buff, err := c.ReadTemplate(); if err != nil {
-			handleError(err)
-		}
-		return buff.String()
+	buff, err := c.ReadTemplate()
+	if err != nil {
+		handleError(err)
+	}
+	return buff.String()
 }
 
 func (c Content) GetTemplatePath() string {
@@ -66,7 +67,7 @@ func checkStdOut(output string) bool {
 }
 
 func getOutputPath(outputFilePath string) string {
-	if len(outputFilePath) >= 1{
+	if len(outputFilePath) >= 1 {
 		return outputFilePath
 	}
 	envVarPath := os.Getenv("DEVLOG_DIR")

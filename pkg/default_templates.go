@@ -2,7 +2,7 @@ package pkg
 
 const defaultTemplate = `
 ### Development Log
-*created: {{.CurrentTime}}*
+*created: {{.FormattedCurrentTime}}*
 
 
 ##### How did your development session go?

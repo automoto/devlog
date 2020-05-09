@@ -3,6 +3,7 @@ package pkg
 import (
 	"fmt"
 	"log"
+	"os"
 	"time"
 )
 
@@ -12,8 +13,8 @@ type Time interface {
 
 type CurrentTime struct {}
 
-func (c CurrentTime) GetCurrentDayAndTime() string {
-	return time.Now().Format("2006-01-02 15:04:05")
+func (c CurrentTime) GetCurrentDayAndTime() time.Time {
+	return time.Now()
 }
 
 func archive() {
@@ -29,14 +30,17 @@ func handleError(err error) {
 
 // Start is the global executor that pulls in the configuration settings, generates the content and saves the file.
 func Start(templatePath string, outputDirPath string) {
-	//var content DevLogConfig
-	//content.getContent(templatePath)
-	//output := generateMd(content.Questions, content.Other)
-	//if checkStdOut(outputDirPath) {
-	//	fmt.Printf("%s", output)
-	//} else {
-	//	file, err := os.Create(getFullOutputPath(outputDirPath))
-	//	handleError(err)
-	//	saveFile(output, file, outputDirPath)
-	//}
+	ct := CurrentTime{}
+	c := Content{
+		 FormattedCurrentTime: ct.GetCurrentDayAndTime().Format("2006-01-02 15:04:05"),
+		 TemplatePath:         templatePath,
+	 }
+	output := c.GenerateMarkdown()
+	if checkStdOut(outputDirPath) {
+		fmt.Printf("%s", output)
+	} else {
+		file, err := os.Create(getFullOutputPath(outputDirPath))
+		handleError(err)
+		saveFile(output, file, outputDirPath)
+	}
 }
