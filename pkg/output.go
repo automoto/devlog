@@ -44,16 +44,17 @@ func (c Content) GenerateMarkdown() string {
 	return buff.String()
 }
 
-func (c Content) GetTemplatePath() string {
-	if len(c.TemplatePath) >= 1 {
-		return c.TemplatePath
+func getTemplatePath(tmpl string) string {
+	if len(tmpl) >= 1 {
+		return tmpl
 	}
-	path := os.Getenv("DEVLOG_LOG_CONTENT")
+	path := os.Getenv("DEVLOG_CONTENT")
 	if len(path) >= 1 {
 		return path
 	}
 	return ""
 }
+
 
 func getTrimmedOutput(output string) string {
 	return strings.Trim(output, " ")
