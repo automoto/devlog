@@ -3,17 +3,29 @@ package pkg
 import (
 	"github.com/stretchr/testify/assert"
 	"testing"
+	"time"
 )
 
-func TestGenerateMd(t *testing.T) {
-	testQuestions := []string{"question 1", "question 2"}
-	otherSections := []string{"section 1", "section 2"}
-	t.Run("Markdown gets generated correctly", func(t *testing.T) {
-		got := generateMd(testQuestions, otherSections)
-		assert.NotEmpty(t, got)
-		assert.Contains(t, got, "##### section 1")
-		assert.Contains(t, got, "##### section 2")
-		assert.Contains(t, got, "##### question 1")
-		assert.Contains(t, got, "##### question 2")
+func TestReadTemplate(t *testing.T) {
+	c := Content{
+		FormattedCurrentTime: time.Now().Format("2006-01-02 15:04:05"),
+		TemplatePath:         "",
+	}
+	t.Run("Template gets generated with the default template", func(t *testing.T) {
+		got, err := c.ReadTemplate()
+		sg := got.String()
+		assert.NoError(t, err)
+		assert.Contains(t, sg, "### Development Log")
+		assert.Contains(t, sg, "##### What could have gone better?")
+		assert.Contains(t, sg, c.FormattedCurrentTime)
+	})
+	//TODO: More of an integration test here, consider mocking the file system and moving this out to a separate integration test
+	t.Run("Template gets generated with the default template", func(t *testing.T) {
+		c.TemplatePath = "test_template.gohtml"
+		got, err := c.ReadTemplate()
+		sg := got.String()
+		assert.NoError(t, err)
+		assert.Contains(t, sg, "### Test Log")
+		assert.Contains(t, sg, c.FormattedCurrentTime)
 	})
 }

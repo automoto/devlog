@@ -3,13 +3,13 @@ package pkg
 import (
 	"github.com/stretchr/testify/assert"
 	"testing"
+	"time"
 )
 
 func TestGetCurrentDayAndTime (t *testing.T) {
+	ct := CurrentTime{}
 	t.Run("generates a date and time", func(t *testing.T) {
-		got := getCurrentDayAndTime()
-		dateLen := len(got)
-		assert.NotEmpty(t, got)
-		assert.True(t, dateLen > 1)
+		got := ct.GetCurrentDayAndTime()
+		assert.IsType(t, time.Time{}, got)
 	})
 }
