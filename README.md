@@ -5,6 +5,21 @@
 
 Devlog's goal is to help you create a "Development Log" to reflect and generate notes during and after a coding session.
 
+<!-- MarkdownTOC -->
+
+- What is a Development Log?
+- What is Devlog?
+- Install
+	- Install Using Go
+- Using Devlog
+- Configure
+	- Configuration using command line options:
+- Customizing Questions and Content of Devlog
+- Building Locally
+
+<!-- /MarkdownTOC -->
+
+
 #### What is a Development Log?
 
 
