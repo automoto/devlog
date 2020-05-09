@@ -83,7 +83,7 @@ func getFullOutputPath(outputFilePath string) string {
 
 func generateFileName() string {
 	now := time.Now()
-	return fmt.Sprintf("devlog_%d_%d_%d_%d_%d_%d.md", now.Month(), now.Day(), now.Year(), now.Hour(),
+	return fmt.Sprintf("devlog_%s_%d_%d_%d.md", now.Format("05-02-2006"), now.Hour(),
 		now.Minute(), now.Second())
 }
 
