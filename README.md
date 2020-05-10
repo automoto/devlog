@@ -13,8 +13,9 @@ Devlog's goal is to help you create a "Development Log" to reflect and generate 
 	- [Install Using Go](#install-using-go)
 - [Using Devlog](#using-devlog)
 - [Configure](#configure)
+	- [Configuration using environment variables:](#configuration-using-environment-variables)
 	- [Configuration using command line options:](#configuration-using-command-line-options)
-- [Customizing Questions and Content of Devlog](#customizing-questions-and-content-of-devlog)
+- [Customizing questions and content of Devlog](#customizing-questions-and-content-of-devlog)
 - [Building Locally](#building-locally)
 - [Contributing](#contributing)
 
@@ -25,7 +26,7 @@ Devlog's goal is to help you create a "Development Log" to reflect and generate 
 
 A development log is a like a software development journal that you fill out during and after a coding session. It's great for reflecting on how coding sessions went, doing brain dumps and documenting TODOs.
 
-Filling out these type of "development logs" and notes about coding sessions is inspired by the [note taking practices of prolific Doom/VR developer John Carmack](https://news.ycombinator.com/item?id=12575501). This can also be useful when paired with a "shutdown routines" at the end of the session of intense work to help us mentally disconnect from our work. More about "shutdown routines" [1](https://www.calnewport.com/blog/2009/06/08/drastically-reduce-stress-with-a-work-shutdown-ritual/)[2](https://www.calnewport.com/blog/2012/08/02/work-less-to-work-better-my-experiments-with-shutdown-routines/).
+Filling out these type of "development logs" and notes about coding sessions is inspired by the [note taking practices of prolific Doom/VR developer John Carmack](https://news.ycombinator.com/item?id=12575501). This can also be useful when paired with a "shutdown routines" at the end of an intense work session to help us mentally disconnect. More about "shutdown routines": [[1]](https://www.calnewport.com/blog/2009/06/08/drastically-reduce-stress-with-a-work-shutdown-ritual/)[[2]](https://www.calnewport.com/blog/2012/08/02/work-less-to-work-better-my-experiments-with-shutdown-routines/).
 
 #### What is Devlog?
 
@@ -83,7 +84,7 @@ nano `./devlog | tail -n 1`
 #### Configure
 By default `devlog` will generate a markdown file in the current directory unless you specify the directory via setting environment variables or through command line options you set.
 
-*Configuration using environment variables:*
+##### Configuration using environment variables:
 
 Set the directory to save devlog files to:
 ```
@@ -110,8 +111,8 @@ devlog -p "/home/your_username/your_directory" -t "/home/your_username/your_dire
 ```
 To view all the possible command line options, just pass in the `-h` command line option for help e.g. `devlog -h` 
 
-#### Customizing Questions and Content of Devlog
-You can customize the sections of your Devlog by creating a `.gohtml` file and specifying your custom content there.
+#### Customizing questions and content of Devlog
+You can customize the content of your markdown document by creating a `.gohtml` file and specifying your custom content there.
 ``` gohtml
 ### Development Log
 *created: {{.FormattedCurrentTime}}*
@@ -123,7 +124,9 @@ You can customize the sections of your Devlog by creating a `.gohtml` file and s
 - [ ]
 - [ ]
 ```
-Then pass in your configuration file to devlog:
+*note you will need to include `{{.FormattedCurrentTime}}` in your template for it to work.*
+
+Now you can pass in your configuration file to devlog:
 ```
 devlog -t your_custom_questions_file.gohtml
 ```
@@ -157,4 +160,8 @@ devlog
 
 #### Contributing
 
-The `Makefile` has most of the commands you need to build, lint, and run the tests locally. Fork and create a pull-request if you wish to contribute a fix or improvement to devlog. A contributor will build your PR in circle-ci and review the change. Please include tests and information in your pull requests description about the change.
+The `Makefile` has most of the commands you need to build, lint, and run the tests locally.
+
+Fork and create a pull-request if you wish to contribute a fix or improvement to Devlog.
+
+A contributor will build your PR in circle-ci and review the change. Please include unit tests and a description of the change in your pull request.
