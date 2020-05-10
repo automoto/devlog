@@ -30,7 +30,7 @@ Filling out these type of "development logs" and notes about coding sessions is 
 
 #### What is Devlog?
 
-Devlog generates a customizable, time stamped, simple, "development log" markdown file to a directory you specify. This gives us alot of flexibility, you can save your devlog files into a git repository or to a cloud file service directory like dropbox, google drive, or one drive for automated syncing and backup.
+Devlog generates a time stamped, customizable, "development log" markdown file to a directory you specify. You can save your devlog files into a git repository or to a cloud file service directory like dropbox, google drive, or one drive for automated syncing and backup.
 
 Devlog prioritizes:
 - Open standards over closed. Keep your notes in markdown files that can be queried for easily in a directory, not locked into some vendors service or custom formatting standards.
