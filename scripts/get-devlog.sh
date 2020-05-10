@@ -28,4 +28,6 @@ download() {
 
 download
 tar -xf "$TAR_FILE" -C "$TMPDIR"
+echo "Moving binary to /usr/local/bin...requires sudo"
+sudo mv "${TMPDIR}/devlog" /usr/local/bin
 echo "devlog installation script complete."
