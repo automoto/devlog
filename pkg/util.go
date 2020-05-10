@@ -33,8 +33,9 @@ func Start(templatePath string, outputDirPath string) {
 	ct := CurrentTime{}
 	c := Content{
 		 FormattedCurrentTime: ct.GetCurrentDayAndTime().Format("2006-01-02 15:04:05"),
-		 TemplatePath:         templatePath,
+		 TemplatePath:         getTemplatePath(templatePath),
 	 }
+
 	output := c.GenerateMarkdown()
 	if checkStdOut(outputDirPath) {
 		fmt.Printf("%s", output)
