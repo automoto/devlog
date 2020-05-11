@@ -71,13 +71,13 @@ By default, it returns the path of the document created so you can input this in
 ```shell
 
 # create a new Devlog file and open it in SublimeText
-subl `./devlog | tail -n 1`
+subl `devlog | tail -n 1`
 
 # create a new Devlog file and open it in vim
-vim `./devlog | tail -n 1`
+vim `devlog | tail -n 1`
 
 # create a new Devlog file and open it in nano
-nano `./devlog | tail -n 1`
+nano `devlog | tail -n 1`
 ```
 
 
