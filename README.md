@@ -26,7 +26,7 @@ Devlog's goal is to help you create a "Development Log" to reflect and generate 
 
 A development log is a like a software development journal that you fill out during and after a coding session. It's great for reflecting on how coding sessions went, doing brain dumps and documenting TODOs.
 
-Filling out these type of "development logs" and notes about coding sessions is inspired by the [note taking practices of prolific Doom/VR developer John Carmack](https://news.ycombinator.com/item?id=12575501). This can also be useful when paired with a "shutdown routines" at the end of an intense work session to help us mentally disconnect. More about "shutdown routines": [[1]](https://www.calnewport.com/blog/2009/06/08/drastically-reduce-stress-with-a-work-shutdown-ritual/)[[2]](https://www.calnewport.com/blog/2012/08/02/work-less-to-work-better-my-experiments-with-shutdown-routines/).
+Filling out these type of "development logs" and notes about coding sessions is inspired by the [note taking practices of prolific Doom/VR developer John Carmack](https://news.ycombinator.com/item?id=12575501). This can also be useful when paired with a "shutdown routine" at the end of an intense work session to help us mentally disconnect. More about "shutdown routines": [[1]](https://www.calnewport.com/blog/2009/06/08/drastically-reduce-stress-with-a-work-shutdown-ritual/)[[2]](https://www.calnewport.com/blog/2012/08/02/work-less-to-work-better-my-experiments-with-shutdown-routines/).
 
 #### What is Devlog?
 
