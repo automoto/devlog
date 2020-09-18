@@ -1,6 +1,7 @@
 package pkg
 
 import (
+	"fmt"
 	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
@@ -15,9 +16,7 @@ func TestReadTemplate(t *testing.T) {
 		got, err := c.ReadTemplate()
 		sg := got.String()
 		assert.NoError(t, err)
-		assert.Contains(t, sg, "### Development Log")
-		assert.Contains(t, sg, "##### What could have gone better?")
-		assert.Contains(t, sg, c.FormattedCurrentTime)
+		assert.Contains(t, sg, fmt.Sprintf("created: %s", c.FormattedCurrentTime))
 	})
 	//TODO: More of an integration test here, consider mocking the file system and moving this out to a separate integration test
 	t.Run("Template gets generated with the default template", func(t *testing.T) {

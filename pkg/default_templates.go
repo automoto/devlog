@@ -1,6 +1,11 @@
 package pkg
 
 const defaultTemplate = `
+*created: {{.FormattedCurrentTime}}*
+
+`
+
+const logTemplate = `
 ### Development Log
 *created: {{.FormattedCurrentTime}}*
 
@@ -24,5 +29,10 @@ const defaultTemplate = `
 
 ##### Notes
 
+`
+
+//TODO: get input on how many TD and loop to generate
+const tdTemplate = `
+*created: {{.FormattedCurrentTime}}*
 
 `
