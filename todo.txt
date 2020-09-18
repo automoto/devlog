@@ -1,0 +1,8 @@
+add template for todo 
+add flags to generate todo file
+update docs
+tests
+
+add code to display version
+https://github.com/ahmetb/govvv
+https://polyverse.com/blog/how-to-embed-versioning-information-in-go-applications-f76e2579b572/
