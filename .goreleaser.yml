@@ -8,6 +8,8 @@ builds:
 - env:
   - CGO_ENABLED=0
   - GO111MODULE=on
+- ldflags:
+    - -X "main.devlogVersion={{.Env.DEVLOG_VERSION}}"
 archives:
 - replacements:
     darwin: Darwin

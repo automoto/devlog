@@ -41,6 +41,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: get the latest version tag
+          command: export DEVLOG_VERSION="$(git describe --tags)"
+      - run:
           name: Install and run goreleaser
           command: 'curl -sL https://git.io/goreleaser | bash'
 workflows:

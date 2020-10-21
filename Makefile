@@ -6,7 +6,7 @@ dep:
 
 build:
 	@echo "Building the binary..."
-	@go build -o devlog .
+	@go build -v -ldflags="-X 'main.devlogVersion=dev'" -o devlog .
 	@echo "Done."
 
 move-to-bin:
