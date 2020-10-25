@@ -4,6 +4,7 @@ before:
   hooks:
     # You may remove this if you don't use go modules.
     - make dep
+    - echo $DEVLOG_VERSION
 builds:
 - env:
   - CGO_ENABLED=0
