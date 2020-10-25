@@ -158,6 +158,13 @@ devlog
 2019/09/02 22:00:32 Successfully saved dev log to directory: /home/dev/null
 ```
 
+*Testing the gorelease builds*
+You may need to run the gorelease command locally for debugging. To do this, run this command:
+
+``` shell
+DEVLOG_VERSION=$(git describe --tags) goreleaser --rm-dist --snapshot --skip-publish
+```
+
 #### Contributing
 
 The `Makefile` has most of the commands you need to build, lint, and run the tests locally.

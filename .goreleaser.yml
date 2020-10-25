@@ -4,15 +4,13 @@ before:
   hooks:
     # You may remove this if you don't use go modules.
     - make dep
-    - echo $DEVLOG_VERSION
 builds:
-  - 
-    id: "main build"
+  - id: "main build"
     env:
       - CGO_ENABLED=0
       - GO111MODULE=on
     ldflags:
-      - -X "main.devlogVersion={{.Env.DEVLOG_VERSION}}"
+     - -s -w -X main.devlogVersion={{.Env.DEVLOG_VERSION}}
 archives:
 - replacements:
     darwin: Darwin
