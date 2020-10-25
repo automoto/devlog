@@ -6,11 +6,13 @@ before:
     - make dep
     - echo $DEVLOG_VERSION
 builds:
-- env:
-  - CGO_ENABLED=0
-  - GO111MODULE=on
-- ldflags:
-    - -X "main.devlogVersion={{.Env.DEVLOG_VERSION}}"
+  - 
+    id: "main build"
+    env:
+      - CGO_ENABLED=0
+      - GO111MODULE=on
+    ldflags:
+      - -X "main.devlogVersion={{.Env.DEVLOG_VERSION}}"
 archives:
 - replacements:
     darwin: Darwin

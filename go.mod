@@ -3,7 +3,7 @@ module github.com/automoto/devlog
 go 1.13
 
 require (
-	github.com/alecthomas/gometalinter v3.0.0+incompatible
+	github.com/alecthomas/gometalinter v3.0.0+incompatible // indirect
 	github.com/alecthomas/units v0.0.0-20190717042225-c3de453c63f4 // indirect
 	github.com/gordonklaus/ineffassign v0.0.0-20190601041439-ed7b1b5ee0f8 // indirect
 	github.com/lunixbochs/vtclean v1.0.0 // indirect
