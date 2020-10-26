@@ -9,4 +9,6 @@ https://www.digitalocean.com/community/tutorials/using-ldflags-to-set-version-in
 - [x] add build step to modify version that is shipped as a binary in circleci
 - [x] test gorelease build locally to make sure it sets the version correctly. Make sure to set the env var first.
 - [x] add a new tag and release that includes version.
-- [ ] fix bug with version tag being one version behind e.g. v0.0.20 is latest but its showing v0.0.19
+- [x] fix bug with version tag being one version behind e.g. v0.0.20 is latest but its showing v0.0.19
+- [ ] add template lookups based on input options. Generate markdown based on template input option
+- [ ] add env vars for note, todo and log templates
