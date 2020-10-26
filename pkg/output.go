@@ -78,21 +78,21 @@ func getOutputPath(outputFilePath string) string {
 	return "."
 }
 
-func getFullOutputPath(outputFilePath string) string {
-	return fmt.Sprintf("%s/%s", getOutputPath(outputFilePath), generateFileName())
+func getFullOutputPath(outputFilePath string, docType string) string {
+	return fmt.Sprintf("%s/%s", getOutputPath(outputFilePath), generateFileName(docType))
 }
 
-func generateFileName() string {
+func generateFileName(docType string) string {
 	now := time.Now()
-	return fmt.Sprintf("devlog_%s_%d-%d-%d.md", now.Format("01_02_2006"), now.Hour(),
+	return fmt.Sprintf("%s_%s_%d-%d-%d.md", docType, now.Format("01_02_2006"), now.Hour(),
 		now.Minute(), now.Second())
 }
 
-func saveFile(outputMd string, file io.Writer, outputFilePath string) {
+func saveFile(outputMd string, file io.Writer, outputFilePath string, docType string) {
 	_, err := fmt.Fprint(file, outputMd)
 	handleError(err)
 	fmt.Println("Successfully saved dev log to path: ")
-	fmt.Printf("%s\n", getFullOutputPath(outputFilePath))
+	fmt.Printf("%s\n", getFullOutputPath(outputFilePath, docType))
 }
 
 //TODO: add back .yaml based config for default options

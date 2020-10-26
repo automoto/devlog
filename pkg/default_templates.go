@@ -31,8 +31,12 @@ const logTemplate = `
 
 `
 
-//TODO: get input on how many TD and loop to generate
+//TODO: get input on how many TD and use a loop to generate the TODOs
 const tdTemplate = `
+### TODO
 *created: {{.FormattedCurrentTime}}*
+
+- [ ]
+- [ ]
 
 `
