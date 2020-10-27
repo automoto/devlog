@@ -2,6 +2,7 @@ package pkg
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -23,16 +24,30 @@ type TemplateReader interface {
 type Content struct {
 	FormattedCurrentTime string
 	TemplatePath         string
+	DocumentType         string
+}
+
+func getTemplate(docType string) (string, error) {
+	if docType == "note" {
+		return defaultTemplate, nil
+	} else if docType == "log" {
+		return logTemplate, nil
+	} else if docType == "todo" {
+		return tdTemplate, nil
+	}
+	return "", errors.New("template not found for document type")
 }
 
 func (c Content) ReadTemplate() (*bytes.Buffer, error) {
 	buf := new(bytes.Buffer)
-	tpl := template.Must(template.New("devlog").Parse(defaultTemplate))
+	documentTemplate, err := getTemplate(c.DocumentType)
+	handleError(err)
+	tpl := template.Must(template.New("devlog").Parse(documentTemplate))
 
 	if len(c.TemplatePath) > 1 {
 		tpl = template.Must(template.ParseFiles(c.TemplatePath))
 	}
-	err := tpl.Execute(buf, c)
+	err = tpl.Execute(buf, c)
 	return buf, err
 }
 
@@ -44,17 +59,20 @@ func (c Content) GenerateMarkdown() string {
 	return buff.String()
 }
 
-func getTemplatePath(tmpl string) string {
+func getTemplatePath(tmpl string, docType string) string {
 	if len(tmpl) >= 1 {
 		return tmpl
 	}
-	path := os.Getenv("DEVLOG_CONTENT")
-	if len(path) >= 1 {
-		return path
+	path := ""
+	if docType == "note" {
+		path = os.Getenv("DEVLOG_NOTE_TEMPLATE")
+	} else if docType == "todo" {
+		path = os.Getenv("DEVLOG_TODO_TEMPLATE")
+	} else if docType == "log" {
+		path = os.Getenv("DEVLOG_LOG_TEMPLATE")
 	}
-	return ""
+	return path
 }
-
 
 func getTrimmedOutput(output string) string {
 	return strings.Trim(output, " ")
@@ -84,7 +102,7 @@ func getFullOutputPath(outputFilePath string, docType string) string {
 
 func generateFileName(docType string) string {
 	now := time.Now()
-	return fmt.Sprintf("%s_%s_%d-%d-%d.md", docType, now.Format("01_02_2006"), now.Hour(),
+	return fmt.Sprintf("devlog_%s_%s_%d-%d-%d.md", docType, now.Format("01_02_2006"), now.Hour(),
 		now.Minute(), now.Second())
 }
 
@@ -94,24 +112,3 @@ func saveFile(outputMd string, file io.Writer, outputFilePath string, docType st
 	fmt.Println("Successfully saved dev log to path: ")
 	fmt.Printf("%s\n", getFullOutputPath(outputFilePath, docType))
 }
-
-//TODO: add back .yaml based config for default options
-//type DevLogConfig struct {
-//	Questions []string `yaml:"questions"`
-//	Other     []string `yaml:"other_section"`
-//}
-
-//func (c *DevLogConfig) getConfig(configFilePath string) *DevLogConfig {
-//	logPath := getLogContentPath(templateFilePath)
-//	if len(logPath) >=1 {
-//		yamlFile, err := ioutil.ReadFile(logPath)
-//		handleError(err)
-//		err = yaml.Unmarshal(yamlFile, c)
-//		handleError(err)
-//		return c
-//	}
-//
-//	err := yaml.UnmarshalStrict([]byte(getDefaultQuestions()), c)
-//	handleError(err)
-//	return c
-//}
