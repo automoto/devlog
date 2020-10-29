@@ -9,16 +9,20 @@ import (
 	"time"
 )
 
+// Time is our interface for any functions we need for handling time
 type Time interface {
 	GetCurrentDayAndTime() time.Time
 }
 
+// CurrentTime is our struct for holding the current time
 type CurrentTime struct{}
 
+// GetCurrentDayAndTime gets the current day and time and returns as a time.Time
 func (c CurrentTime) GetCurrentDayAndTime() time.Time {
 	return time.Now()
 }
 
+// Contains is a useful method for checking if a value exists in a slice
 func Contains(slice []string, val string) bool {
 	for _, item := range slice {
 		if item == val {

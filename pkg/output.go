@@ -11,16 +11,17 @@ import (
 	"time"
 )
 
-// interface for content
-
+// TextContent interface for text content generation
 type TextContent interface {
 	GenerateMarkdown() string
 }
 
+// TemplateReader interface for reading templates
 type TemplateReader interface {
 	ReadTemplate() (*bytes.Buffer, error)
 }
 
+// Content struct which has attributes we need for generating the document
 type Content struct {
 	FormattedCurrentTime string
 	TemplatePath         string
@@ -38,6 +39,7 @@ func getTemplate(docType string) (string, error) {
 	return "", errors.New("template not found for document type")
 }
 
+// ReadTemplate get a template based on the configured options and read it
 func (c Content) ReadTemplate() (*bytes.Buffer, error) {
 	buf := new(bytes.Buffer)
 	documentTemplate, err := getTemplate(c.DocumentType)
@@ -51,6 +53,7 @@ func (c Content) ReadTemplate() (*bytes.Buffer, error) {
 	return buf, err
 }
 
+// GenerateMarkdown takes the output from a template and outputs it into a string
 func (c Content) GenerateMarkdown() string {
 	buff, err := c.ReadTemplate()
 	if err != nil {
