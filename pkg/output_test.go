@@ -2,6 +2,7 @@ package pkg
 
 import (
 	"fmt"
+	"os"
 	"testing"
 	"time"
 
@@ -173,13 +174,29 @@ func Test_getTemplatePath(t *testing.T) {
 	type args struct {
 		tmpl    string
 		docType string
+		envVars []string
 	}
 	tests := []struct {
 		name string
 		args args
 		want string
 	}{
-		// TODO: Add test cases.
+		{
+			name: "tmpl value is returned when its already set",
+			args: args{
+				tmpl: "/home/devlog",
+				docType: "note",
+			},
+			want: "/home/devlog",
+		},
+		{
+			name: "no path is returned when no template path present",
+			args: args{
+				tmpl:    "",
+				docType: "",
+			},
+			want: "",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -188,129 +205,44 @@ func Test_getTemplatePath(t *testing.T) {
 			}
 		})
 	}
+	// TODO: More of an integration test, consider using mocks here.
+	t.Run("set environment variable path is returned when present", func(t *testing.T) {
+		os.Setenv("DEVLOG_NOTE_TEMPLATE", "/home/documents")
+		got := getTemplatePath("", "note")
+		assert.Equal(t, "/home/documents", got)
+		os.Unsetenv("DEVLOG_NOTE_TEMPLATE")
+	})
 }
 
 func Test_getTrimmedOutput(t *testing.T) {
-	type args struct {
-		output string
-	}
-	tests := []struct {
-		name string
-		args args
-		want string
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := getTrimmedOutput(tt.args.output); got != tt.want {
-				t.Errorf("getTrimmedOutput(%v) = %v, want %v", tt.args.output, got, tt.want)
-			}
-		})
-	}
+	t.Run("output gets trimmed", func(t *testing.T) {
+		got := getTrimmedOutput("billy ")
+		assert.Equal(t, got, "billy")
+	})
 }
 
 func Test_checkStdOut(t *testing.T) {
-	type args struct {
-		output string
-	}
-	tests := []struct {
-		name string
-		args args
-		want bool
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := checkStdOut(tt.args.output); got != tt.want {
-				t.Errorf("checkStdOut(%v) = %v, want %v", tt.args.output, got, tt.want)
-			}
-		})
-	}
+	t.Run("stdout is true when present", func(t *testing.T) {
+		got := checkStdOut("stdout")
+		assert.True(t, got)
+	})
+	t.Run("stdout is false when not present", func(t *testing.T) {
+		got := checkStdOut("/home/")
+		assert.False(t, got)
+	})
+
 }
 
 func Test_getOutputPath(t *testing.T) {
-	type args struct {
-		outputFilePath string
-	}
-	tests := []struct {
-		name string
-		args args
-		want string
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := getOutputPath(tt.args.outputFilePath); got != tt.want {
-				t.Errorf("getOutputPath(%v) = %v, want %v", tt.args.outputFilePath, got, tt.want)
-			}
-		})
-	}
-}
-
-func Test_getFullOutputPath(t *testing.T) {
-	type args struct {
-		outputFilePath string
-		docType        string
-	}
-	tests := []struct {
-		name string
-		args args
-		want string
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := getFullOutputPath(tt.args.outputFilePath, tt.args.docType); got != tt.want {
-				t.Errorf("getFullOutputPath(%v, %v) = %v, want %v", tt.args.outputFilePath, tt.args.docType, got, tt.want)
-			}
-		})
-	}
+	t.Run("output path is returned when present", func(t *testing.T) {
+		got := getOutputPath("/home/kanye")
+		assert.Equal(t, "/home/kanye", got)
+	})
 }
 
 func Test_generateFileName(t *testing.T) {
-	type args struct {
-		docType string
-	}
-	tests := []struct {
-		name string
-		args args
-		want string
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := generateFileName(tt.args.docType); got != tt.want {
-				t.Errorf("generateFileName(%v) = %v, want %v", tt.args.docType, got, tt.want)
-			}
-		})
-	}
+	t.Run("filename gets returned", func(t *testing.T) {
+		got := generateFileName("note")
+		assert.Contains(t, got, "devlog_")
+	})
 }
-
-//func Test_saveFile(t *testing.T) {
-//	type args struct {
-//		outputMd       string
-//		outputFilePath string
-//		docType        string
-//	}
-//	tests := []struct {
-//		name     string
-//		args     args
-//		wantFile string
-//	}{
-//		// TODO: Add test cases.
-//	}
-//	for _, tt := range tests {
-//		t.Run(tt.name, func(t *testing.T) {
-//			file := &bytes.Buffer{}
-//			saveFile(tt.args.outputMd, file, tt.args.outputFilePath, tt.args.docType)
-//			if gotFile := file.String(); gotFile != tt.wantFile {
-//				t.Errorf("saveFile(%v, %v, %v, %v) = %v, want %v", tt.args.outputMd, tt.args.file, tt.args.outputFilePath, tt.args.docType, gotFile, tt.wantFile)
-//			}
-//		})
-//	}
-//}
