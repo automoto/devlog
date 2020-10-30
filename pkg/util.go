@@ -33,15 +33,11 @@ func Contains(slice []string, val string) bool {
 }
 
 func validDocTypes() []string {
-	validDocTypes := make([]string, 3)
+	validDocTypes := make([]string, 0)
 	validDocTypes = append(validDocTypes, "note")
 	validDocTypes = append(validDocTypes, "log")
 	validDocTypes = append(validDocTypes, "todo")
 	return validDocTypes
-}
-
-func archive() {
-	fmt.Println("not implemented yet")
 }
 
 func isDocTypeValid(docTypeInput string) (bool, error) {

@@ -44,7 +44,22 @@ func TestContains(t *testing.T) {
 		args args
 		want bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "returns true when a value found",
+			args: args{
+				slice: []string{"a", "b", "c"},
+				val: "b",
+			},
+			want: true,
+		},
+		{
+			name: "returns false when a value not found",
+			args: args{
+				slice: []string{"a", "b", "c"},
+				val: "z",
+			},
+			want: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -56,75 +71,18 @@ func TestContains(t *testing.T) {
 }
 
 func Test_validDocTypes(t *testing.T) {
-	tests := []struct {
-		name string
-		want []string
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := validDocTypes(); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("validDocTypes() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func Test_archive(t *testing.T) {
-	tests := []struct {
-		name string
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			archive()
-		})
-	}
+	t.Run("expected number of valid document types is returned", func(t *testing.T) {
+		got := validDocTypes()
+		assert.Len(t, got, 3)
+	})
 }
 
 func Test_isDocTypeValid(t *testing.T) {
-	type args struct {
-		docTypeInput string
-	}
-	tests := []struct {
-		name    string
-		args    args
-		want    bool
-		wantErr bool
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got, err := isDocTypeValid(tt.args.docTypeInput)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("isDocTypeValid(%v) error = %v, wantErr %v", tt.args.docTypeInput, err, tt.wantErr)
-				return
-			}
-			if got != tt.want {
-				t.Errorf("isDocTypeValid(%v) = %v, want %v", tt.args.docTypeInput, got, tt.want)
-			}
-		})
-	}
-}
-
-func Test_handleError(t *testing.T) {
-	type args struct {
-		err error
-	}
-	tests := []struct {
-		name string
-		args args
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			handleError(tt.args.err)
-		})
-	}
+	t.Run("returns correct values when document type not found", func(t *testing.T) {
+		got, err := isDocTypeValid("fgfdhglkdsf")
+		assert.Error(t, err)
+		assert.False(t, got)
+	})
 }
 
 func Test_cleanInput(t *testing.T) {
