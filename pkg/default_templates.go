@@ -1,7 +1,11 @@
 package pkg
 
-const defaultTemplate = `
-### Development Log
+const defaultTemplate = `### Note
+*created: {{.FormattedCurrentTime}}*
+
+`
+
+const logTemplate = `### Development Log
 *created: {{.FormattedCurrentTime}}*
 
 
@@ -24,5 +28,13 @@ const defaultTemplate = `
 
 ##### Notes
 
+`
+
+//TODO: get input on how many TDs and use a loop to generate the TODOs
+const tdTemplate = `### TODO
+*created: {{.FormattedCurrentTime}}*
+
+- [ ]
+- [ ]
 
 `

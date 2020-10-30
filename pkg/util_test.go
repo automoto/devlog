@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func TestGetCurrentDayAndTime (t *testing.T) {
+func TestGetCurrentDayAndTime(t *testing.T) {
 	ct := CurrentTime{}
 	t.Run("generates a date and time", func(t *testing.T) {
 		got := ct.GetCurrentDayAndTime()
