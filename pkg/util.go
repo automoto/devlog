@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"log"
-	"os"
 	"strings"
 	"time"
 )
@@ -70,16 +69,20 @@ func Start(templatePath string, outputDirPath string, docType string) {
 	ct := CurrentTime{}
 	c := Content{
 		FormattedCurrentTime: ct.GetCurrentDayAndTime().Format("2006-01-02 15:04:05"),
-		TemplatePath:         getTemplatePath(templatePath, docType),
+		TemplatePath:         templatePath,
 		DocumentType:         docType,
 	}
-
 	output := c.GenerateMarkdown()
+
 	if checkStdOut(outputDirPath) {
 		fmt.Printf("%s", output)
 	} else {
-		file, err := os.Create(getFullOutputPath(outputDirPath, docType))
+		df := DevlogFile{
+			OutputDirPath:  outputDirPath,
+		}
+		df.OutputFilePath = df.GetFullOutputPath(docType)
+		file, err := df.CreateFile()
 		handleError(err)
-		saveFile(output, file, outputDirPath, docType)
+		df.SaveFile(output, file, docType)
 	}
 }

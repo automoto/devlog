@@ -19,6 +19,36 @@ type TextContent interface {
 // TemplateReader interface for reading templates
 type TemplateReader interface {
 	ReadTemplate() (*bytes.Buffer, error)
+	GetTemplatePath() string
+	GetTemplate() (string, error)
+}
+
+// GetTemplatePath gets the template path based on if an input is passed in or if an env var is set
+func (c Content) GetTemplatePath(inputPath string) string {
+	if len(inputPath) >= 1 {
+		return inputPath
+	}
+	path := ""
+	if c.DocumentType == "note" {
+		path = os.Getenv("DEVLOG_NOTE_TEMPLATE")
+	} else if c.DocumentType == "todo" {
+		path = os.Getenv("DEVLOG_TODO_TEMPLATE")
+	} else if c.DocumentType == "log" {
+		path = os.Getenv("DEVLOG_LOG_TEMPLATE")
+	}
+	return path
+}
+
+// GetTemplate gets our document template based on the input document type
+func (c Content) GetTemplate() (string, error) {
+	if c.DocumentType == "note" {
+		return defaultTemplate, nil
+	} else if c.DocumentType == "log" {
+		return logTemplate, nil
+	} else if c.DocumentType == "todo" {
+		return tdTemplate, nil
+	}
+	return "", errors.New("template not found for document type")
 }
 
 // Content struct which has attributes we need for generating the document
@@ -28,21 +58,10 @@ type Content struct {
 	DocumentType         string
 }
 
-func getTemplate(docType string) (string, error) {
-	if docType == "note" {
-		return defaultTemplate, nil
-	} else if docType == "log" {
-		return logTemplate, nil
-	} else if docType == "todo" {
-		return tdTemplate, nil
-	}
-	return "", errors.New("template not found for document type")
-}
-
 // ReadTemplate get a template based on the configured options and read it
 func (c Content) ReadTemplate() (*bytes.Buffer, error) {
 	buf := new(bytes.Buffer)
-	documentTemplate, err := getTemplate(c.DocumentType)
+	documentTemplate, err := c.GetTemplate()
 	handleError(err)
 	tpl := template.Must(template.New("devlog").Parse(documentTemplate))
 
@@ -62,21 +81,6 @@ func (c Content) GenerateMarkdown() string {
 	return buff.String()
 }
 
-func getTemplatePath(tmpl string, docType string) string {
-	if len(tmpl) >= 1 {
-		return tmpl
-	}
-	path := ""
-	if docType == "note" {
-		path = os.Getenv("DEVLOG_NOTE_TEMPLATE")
-	} else if docType == "todo" {
-		path = os.Getenv("DEVLOG_TODO_TEMPLATE")
-	} else if docType == "log" {
-		path = os.Getenv("DEVLOG_LOG_TEMPLATE")
-	}
-	return path
-}
-
 func getTrimmedOutput(output string) string {
 	return strings.Trim(output, " ")
 }
@@ -88,9 +92,42 @@ func checkStdOut(output string) bool {
 	return contains
 }
 
-func getOutputPath(outputFilePath string) string {
-	if len(outputFilePath) >= 1 {
-		return outputFilePath
+// DevlogFile holds metadata about files
+type DevlogFile struct {
+	OutputDirPath string
+	OutputFilePath string
+}
+
+// FileOps is the interface for devlog file operations
+type FileOps interface {
+	GetOutputPath() string
+	GetFullOutputPath(docType string) string
+	GenerateFileName(docType string) string
+	CreateFile(docType string) (*os.File, error)
+	SaveFile(outputMd string, file io.Writer, docType string)
+}
+
+// CreateFile creates a file for devlog to save
+func (f DevlogFile) CreateFile() (*os.File, error){
+	file, err := os.Create(f.OutputFilePath)
+	if err != nil {
+		return nil, err
+	}
+	return file, nil
+}
+
+// SaveFile saves our markdown file to the specified directory
+func (f DevlogFile) SaveFile(outputMd string, file io.Writer, docType string) {
+	_, err := fmt.Fprint(file, outputMd)
+	handleError(err)
+	fmt.Println("Successfully saved dev log to path: ")
+	fmt.Printf("%s\n", f.GetFullOutputPath(docType))
+}
+
+// GetOutputPath gets a path and selects sensible defaults if one is not set
+func (f DevlogFile) GetOutputPath() string {
+	if len(f.OutputFilePath) >= 1 {
+		return f.OutputFilePath
 	}
 	envVarPath := os.Getenv("DEVLOG_DIR")
 	if len(envVarPath) >= 1 {
@@ -99,19 +136,14 @@ func getOutputPath(outputFilePath string) string {
 	return "."
 }
 
-func getFullOutputPath(outputFilePath string, docType string) string {
-	return fmt.Sprintf("%s/%s", getOutputPath(outputFilePath), generateFileName(docType))
+// GetFullOutputPath generates the full path with the specified directory and filename
+func (f DevlogFile) GetFullOutputPath(docType string) string {
+	return fmt.Sprintf("%s/%s", f.GetOutputPath(), f.GenerateFileName(docType))
 }
 
-func generateFileName(docType string) string {
+// GenerateFileName generates the timestamped file prefixed with the document type
+func (f DevlogFile) GenerateFileName(docType string) string {
 	now := time.Now()
 	return fmt.Sprintf("devlog_%s_%s_%d-%d-%d.md", docType, now.Format("01_02_2006"), now.Hour(),
 		now.Minute(), now.Second())
-}
-
-func saveFile(outputMd string, file io.Writer, outputFilePath string, docType string) {
-	_, err := fmt.Fprint(file, outputMd)
-	handleError(err)
-	fmt.Println("Successfully saved dev log to path: ")
-	fmt.Printf("%s\n", getFullOutputPath(outputFilePath, docType))
 }
