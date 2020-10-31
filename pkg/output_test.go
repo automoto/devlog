@@ -128,7 +128,10 @@ func Test_getTemplate(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := getTemplate(tt.args.docType)
+			c := Content{
+				DocumentType: tt.args.docType,
+			}
+			got, err := c.GetTemplate()
 			if (err != nil) != tt.wantErr {
 				t.Errorf("getTemplate(%v) error = %v, wantErr %v", tt.args.docType, err, tt.wantErr)
 				return
@@ -170,7 +173,7 @@ func TestContent_GenerateMarkdown(t *testing.T) {
 	})
 }
 
-func Test_getTemplatePath(t *testing.T) {
+func Test_GetTemplatePath(t *testing.T) {
 	type args struct {
 		tmpl    string
 		docType string
@@ -200,15 +203,22 @@ func Test_getTemplatePath(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := getTemplatePath(tt.args.tmpl, tt.args.docType); got != tt.want {
+			c := Content{
+				FormattedCurrentTime: testTime,
+				DocumentType:         tt.args.docType,
+			}
+			if got := c.GetTemplatePath(tt.args.tmpl); got != tt.want {
 				t.Errorf("getTemplatePath(%v, %v) = %v, want %v", tt.args.tmpl, tt.args.docType, got, tt.want)
 			}
 		})
 	}
 	// TODO: More of an integration test, consider using mocks here.
 	t.Run("set environment variable path is returned when present", func(t *testing.T) {
+		c := Content{
+			DocumentType: "note",
+		}
 		os.Setenv("DEVLOG_NOTE_TEMPLATE", "/home/documents")
-		got := getTemplatePath("", "note")
+		got := c.GetTemplatePath("")
 		assert.Equal(t, "/home/documents", got)
 		os.Unsetenv("DEVLOG_NOTE_TEMPLATE")
 	})
@@ -233,16 +243,20 @@ func Test_checkStdOut(t *testing.T) {
 
 }
 
-func Test_getOutputPath(t *testing.T) {
+func Test_GetOutputPath(t *testing.T) {
 	t.Run("output path is returned when present", func(t *testing.T) {
-		got := getOutputPath("/home/kanye")
+		df := DevlogFile{
+			OutputFilePath: "/home/kanye",
+		}
+		got := df.GetOutputPath()
 		assert.Equal(t, "/home/kanye", got)
 	})
 }
 
-func Test_generateFileName(t *testing.T) {
+func Test_GenerateFileName(t *testing.T) {
 	t.Run("filename gets returned", func(t *testing.T) {
-		got := generateFileName("note")
-		assert.Contains(t, got, "devlog_")
+		df := DevlogFile{}
+		got := df.GenerateFileName("note")
+		assert.Contains(t, got, "devlog_note_")
 	})
 }
