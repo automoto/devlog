@@ -11,6 +11,9 @@ import (
 	"time"
 )
 
+// Store func calls to os.Getenv in a variable to improve testability
+var osGetEnv = os.Getenv
+
 // TextContent interface for text content generation
 type TextContent interface {
 	GenerateMarkdown() string
@@ -30,11 +33,11 @@ func (c Content) GetTemplatePath(inputPath string) string {
 	}
 	path := ""
 	if c.DocumentType == "note" {
-		path = os.Getenv("DEVLOG_NOTE_TEMPLATE")
+		path = osGetEnv("DEVLOG_NOTE_TEMPLATE")
 	} else if c.DocumentType == "todo" {
-		path = os.Getenv("DEVLOG_TODO_TEMPLATE")
+		path = osGetEnv("DEVLOG_TODO_TEMPLATE")
 	} else if c.DocumentType == "log" {
-		path = os.Getenv("DEVLOG_LOG_TEMPLATE")
+		path = osGetEnv("DEVLOG_LOG_TEMPLATE")
 	}
 	return path
 }
@@ -107,9 +110,10 @@ type FileOps interface {
 	SaveFile(outputMd string, file io.Writer, docType string)
 }
 
+var osCreate = os.Create
 // CreateFile creates a file for devlog to save
 func (f DevlogFile) CreateFile() (*os.File, error){
-	file, err := os.Create(f.OutputFilePath)
+	file, err := osCreate(f.OutputFilePath)
 	if err != nil {
 		return nil, err
 	}
@@ -117,11 +121,14 @@ func (f DevlogFile) CreateFile() (*os.File, error){
 }
 
 // SaveFile saves our markdown file to the specified directory
-func (f DevlogFile) SaveFile(outputMd string, file io.Writer, docType string) {
+func (f DevlogFile) SaveFile(outputMd string, file io.Writer, docType string) error {
 	_, err := fmt.Fprint(file, outputMd)
-	handleError(err)
+	if err != nil {
+		return err
+	}
 	fmt.Println("Successfully saved dev log to path: ")
 	fmt.Printf("%s\n", f.GetFullOutputPath(docType))
+	return nil
 }
 
 // GetOutputPath gets a path and selects sensible defaults if one is not set
@@ -129,7 +136,7 @@ func (f DevlogFile) GetOutputPath() string {
 	if len(f.OutputFilePath) >= 1 {
 		return f.OutputFilePath
 	}
-	envVarPath := os.Getenv("DEVLOG_DIR")
+	envVarPath := osGetEnv("DEVLOG_DIR")
 	if len(envVarPath) >= 1 {
 		return envVarPath
 	}

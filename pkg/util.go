@@ -83,6 +83,7 @@ func Start(templatePath string, outputDirPath string, docType string) {
 		df.OutputFilePath = df.GetFullOutputPath(docType)
 		file, err := df.CreateFile()
 		handleError(err)
-		df.SaveFile(output, file, docType)
+		err = df.SaveFile(output, file, docType)
+		handleError(err)
 	}
 }
