@@ -26,8 +26,8 @@ Devlog generates a simple note, todo or "Development Log" journal markdown docum
 Devlog prioritizes:
 - Open standards over closed. Keep your notes in markdown files that can be searched for easily in a directory, not locked into some vendors service or custom formatting standards.
 - Simplicity. This is not meant to be a complex static content generator. It strives to be an easy to configure and create customizable markdown files that you can fill out in a text editor of your choice.
-- Commandline first. You should be able to create edit and view notes without leaving your commandline and having to context switch.
-- Usability. Sensible defaults for most things and simple options for customization as well. 
+- Commandline first. You should be able to create, edit, and, view notes without leaving your commandline and having to context switch.
+- Ease of use. Sensible defaults for most things and simple options for customization as well. 
 
 #### What kind of note files can we generate?
 
@@ -155,7 +155,8 @@ devlog -template your_custom_questions_file.gohtml
 ```
 
 #### Viewing the generated files
-You can use any text editor or tool that can render markdown files if you like. If you prefer to keep your focus in the command line terminal, you can use a command line markdown viewer like (mdless)[https://github.com/ttscoff/mdless], (mdr)[https://github.com/MichaelMure/mdr/] or (glow)[https://github.com/charmbracelet/glow]
+You can use any text editor or tool that can render markdown files if you like. If you prefer to keep your focus in the command line terminal,
+ you can use a command line markdown viewer like [mdless](https://github.com/ttscoff/mdless), [mdr](https://github.com/MichaelMure/mdr/) or [glow](https://github.com/charmbracelet/glow).
 
 #### Contributing
-Take a look at our `CONTRIBUTING.md` guide for instructions on how to build, test and submit changes to devlog.
+Take a look at our [Contributing](CONTRIBUTING.md) guide for instructions on how to build, test and submit changes to devlog.
