@@ -285,7 +285,7 @@ func fakeGetEnvNotSet(envVar string) string {
 func Test_GetOutputPath(t *testing.T) {
 	t.Run("output path is returned when path is set via input", func(t *testing.T) {
 		df := DevlogFile{
-			OutputFilePath: "/home/kanye",
+			OutputDirPath: "/home/kanye",
 		}
 		got := df.GetOutputPath()
 		assert.Equal(t, "/home/kanye", got)
