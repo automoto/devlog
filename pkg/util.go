@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"log"
-	"os"
 	"strings"
 	"time"
 )
@@ -33,15 +32,11 @@ func Contains(slice []string, val string) bool {
 }
 
 func validDocTypes() []string {
-	validDocTypes := make([]string, 3)
+	validDocTypes := make([]string, 0)
 	validDocTypes = append(validDocTypes, "note")
 	validDocTypes = append(validDocTypes, "log")
 	validDocTypes = append(validDocTypes, "todo")
 	return validDocTypes
-}
-
-func archive() {
-	fmt.Println("not implemented yet")
 }
 
 func isDocTypeValid(docTypeInput string) (bool, error) {
@@ -74,16 +69,21 @@ func Start(templatePath string, outputDirPath string, docType string) {
 	ct := CurrentTime{}
 	c := Content{
 		FormattedCurrentTime: ct.GetCurrentDayAndTime().Format("2006-01-02 15:04:05"),
-		TemplatePath:         getTemplatePath(templatePath, docType),
+		TemplatePath:         templatePath,
 		DocumentType:         docType,
 	}
-
 	output := c.GenerateMarkdown()
+
 	if checkStdOut(outputDirPath) {
 		fmt.Printf("%s", output)
 	} else {
-		file, err := os.Create(getFullOutputPath(outputDirPath, docType))
+		df := DevlogFile{
+			OutputDirPath:  outputDirPath,
+		}
+		df.OutputFilePath = df.GetFullOutputPath(docType)
+		file, err := df.CreateFile()
 		handleError(err)
-		saveFile(output, file, outputDirPath, docType)
+		err = df.SaveFile(output, file, docType)
+		handleError(err)
 	}
 }
