@@ -1,9 +1,7 @@
 ### Dev Log
 [![CircleCI](https://circleci.com/gh/automoto/devlog.svg?style=svg)](https://circleci.com/gh/automoto/devlog)
 
-*The software development log to reflect and capture your thoughts, progress and TODOs.*
-
-Devlog's goal is to help you create a "Development Log" to reflect and generate notes during and after a coding session.
+*The command line app to capture your notes, reflections, and TODOs in markdown.*
 
 <!-- toc -->
 
@@ -14,8 +12,8 @@ Devlog's goal is to help you create a "Development Log" to reflect and generate 
   * [Install Using Go](#install-using-go)
 * [Using Devlog](#using-devlog)
   * [Configure](#configure)
-  * [Configuration using environment variables:](#configuration-using-environment-variables)
   * [Configuration using command line options:](#configuration-using-command-line-options)
+  * [Configuration using environment variables:](#configuration-using-environment-variables)
 * [Customizing content of Devlog files](#customizing-content-of-devlog-files)
 * [Contributing](#contributing)
 
@@ -23,20 +21,20 @@ Devlog's goal is to help you create a "Development Log" to reflect and generate 
 
 #### What is Devlog?
 
-Devlog generates simple note, todo or "Development Log" journal markdown documents that are customizable. You can save your devlog files into a git repository or to a cloud file service directory like dropbox, google drive, or one drive for automated syncing and backup.
+Devlog generates a simple note, todo or "Development Log" journal markdown document that is customizable. You can save your devlog files into a git repository or to a local directory that will sync with dropbox, google drive, or one drive for automated syncing and backup.
 
 Devlog prioritizes:
 - Open standards over closed. Keep your notes in markdown files that can be searched for easily in a directory, not locked into some vendors service or custom formatting standards.
-- Simplicity. This is not meant to be a complex static content generator. It strives to be an easy to configure and create customizable markdown files to fill out in a text editor of your choice.
+- Simplicity. This is not meant to be a complex static content generator. It strives to be an easy to configure and create customizable markdown files that you can fill out in a text editor of your choice.
 - Commandline first. You should be able to create edit and view notes without leaving your commandline and having to context switch.
 - Usability. Sensible defaults for most things and simple options for customization as well. 
 
 #### What kind of note files can we generate?
 
 Currently there are three kind of documents you can create:
-- note: Generates an empty note markdown document with a title. Great for quickly jotting down some notes or any content you want to add that is less structured. 
-- todo: Generates a TODO markdown file with a few checkboxes.
-- log: Generates a "Development Log" which is a document with questions you fill out at the end of a development session to reflect on how the session went and what you learned.
+- **note:** Generates an empty note markdown document with a title. Great for quickly jotting down some notes or any content you want to add that is less structured. 
+- **todo:** Generates a TODO markdown file with a few checkboxes.
+- **log:** Generates a "Development Log" which is a document with questions you fill out at the end of a development session to reflect on how the session went and what you learned.
 
 All documents are generated with a timestamp and can be customized via a template if you desire.
 
@@ -98,9 +96,19 @@ vim `devlog | tail -n 1`
 nano `devlog | tail -n 1`
 ```
 
-
 ##### Configure
 By default `devlog` will generate a markdown file in the current directory unless you specify the directory via setting environment variables or through command line options you set.
+
+##### Configuration using command line options:
+
+You can also pass in configurations via command line options. Command line options take precedence over configurations set via environment variables.
+```
+# Save a file to a specific directory and using a custom template
+devlog -p "/home/your_username/your_directory" -template "/home/your_username/your_directory/custom.gohtml"
+
+# Generate a 'todo' markdown document with the -type or -t option
+devlog -t todo
+```
 
 ##### Configuration using environment variables:
 
@@ -110,26 +118,18 @@ export DEVLOG_DIR="/home/your_username/your_directory"
 ```
 
 Set the default template for your devlog files content:
-```
-export DEVLOG_CONTENT="/home/your_username/your_directory/custom.gohtml"
-```
+```shell
+export DEVLOG_NOTE_TEMPLATE="/home/your_custom_note.gohtml"
 
+export DEVLOG_TODO_TEMPLATE="/home/your_custom_todo.gohtml"
+
+export DEVLOG_LOG_TEMPLATE="/home/your_custom_log.gohtml"
+```
 
 You can override this by temporarily setting the value when calling devlog
 
 ```
 DEVLOG_DIR="/home/your_username/other_directory" devlog
-```
-
-##### Configuration using command line options:
-
-You can also pass in configurations via command line options. Command line options take precedence over configurations set via environment variables.
-```
-# Save a file to a specific directory and using a custom template
-devlog -p "/home/your_username/your_directory" -t "/home/your_username/your_directory/custom.gohtml"
-
-# Generate a 'todo' markdown document with the -type or -t option
-devlog -t todo
 ```
 
 To view all the possible command line options, just pass in the `-h` command line option for help e.g. `devlog -h` 
@@ -151,8 +151,11 @@ You can customize the content of your markdown document by creating a `.gohtml` 
 
 Now you can pass in your configuration file to devlog:
 ```
-devlog -t your_custom_questions_file.gohtml
+devlog -template your_custom_questions_file.gohtml
 ```
+
+#### Viewing the generated files
+You can use any text editor or tool that can render markdown files if you like. If you prefer to keep your focus in the command line terminal, you can use a command line markdown viewer like (mdless)[https://github.com/ttscoff/mdless], (mdr)[https://github.com/MichaelMure/mdr/] or (glow)[https://github.com/charmbracelet/glow]
 
 #### Contributing
 Take a look at our `CONTRIBUTING.md` guide for instructions on how to build, test and submit changes to devlog.
