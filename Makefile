@@ -24,7 +24,7 @@ test:
 	go test ./...
 
 test-ci:
-	gotestsum --junitfile pkg/results.xml
+	gotestsum --format testname --junitfile pkg/results.xml -- -coverprofile=cover.out ./pkg
 
 latest-release:
 	curl -sL https://api.github.com/repos/automoto/devlog/releases/latest | jq -r '.assets[].browser_download_url'
