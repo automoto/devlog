@@ -46,7 +46,7 @@ Filling out these type of "development logs" and notes about coding sessions is 
 
 #### Install
 The easiest way to install devlog is to use the provided installation script
-``` sh
+```shell
 wget https://raw.githubusercontent.com/automoto/devlog/master/scripts/get-devlog.sh
 # you're welcome to examine the script, it just grabs the latest release from github for your OS and installs it
 sh get-devlog.sh
@@ -102,7 +102,7 @@ By default `devlog` will generate a markdown file in the current directory unles
 ##### Configuration using command line options:
 
 You can also pass in configurations via command line options. Command line options take precedence over configurations set via environment variables.
-```
+```shell
 # Save a file to a specific directory and using a custom template
 devlog -p "/home/your_username/your_directory" -template "/home/your_username/your_directory/custom.gohtml"
 
@@ -113,7 +113,7 @@ devlog -t todo
 ##### Configuration using environment variables:
 
 Set the directory to save devlog files to:
-```
+```shell
 export DEVLOG_DIR="/home/your_username/your_directory"
 ```
 
@@ -128,7 +128,7 @@ export DEVLOG_LOG_TEMPLATE="/home/your_custom_log.gohtml"
 
 You can override this by temporarily setting the value when calling devlog
 
-```
+```shell
 DEVLOG_DIR="/home/your_username/other_directory" devlog
 ```
 
@@ -136,7 +136,7 @@ To view all the possible command line options, just pass in the `-h` command lin
 
 #### Customizing content of Devlog files
 You can customize the content of your markdown document by creating a `.gohtml` file and specifying your custom content there.
-``` gohtml
+```gohtml
 ### Development Log
 *created: {{.FormattedCurrentTime}}*
 
