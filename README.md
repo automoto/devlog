@@ -5,36 +5,44 @@
 
 Devlog's goal is to help you create a "Development Log" to reflect and generate notes during and after a coding session.
 
-<!-- MarkdownTOC autolink="true" -->
+<!-- toc -->
 
-- [What is a Development Log?](#what-is-a-development-log)
-- [What is Devlog?](#what-is-devlog)
-- [Install](#install)
-	- [Install Using Go](#install-using-go)
-- [Using Devlog](#using-devlog)
-- [Configure](#configure)
-	- [Configuration using environment variables:](#configuration-using-environment-variables)
-	- [Configuration using command line options:](#configuration-using-command-line-options)
-- [Customizing questions and content of Devlog](#customizing-questions-and-content-of-devlog)
-- [Building Locally](#building-locally)
-- [Contributing](#contributing)
+* [What kind of note files can we generate?](#what-kind-of-note-files-can-we-generate)
+* [What is a Development Log?](#what-is-a-development-log)
+* [Install](#install)
+* [Install Using Go](#install-using-go)
+* [Using Devlog](#using-devlog)
+* [Configure](#configure)
+* [Configuration using environment variables:](#configuration-using-environment-variables)
+* [Configuration using command line options:](#configuration-using-command-line-options)
+* [Customizing content of Devlog files](#customizing-content-of-devlog-files)
 
-<!-- /MarkdownTOC -->
-
-
-#### What is a Development Log?
-
-A development log is a like a software development journal that you fill out during and after a coding session. It's great for reflecting on how coding sessions went, doing brain dumps and documenting TODOs.
-
-Filling out these type of "development logs" and notes about coding sessions is inspired by the [note taking practices of prolific Doom/VR developer John Carmack](https://news.ycombinator.com/item?id=12575501). This can also be useful when paired with a "shutdown routine" at the end of an intense work session to help us mentally disconnect. More about "shutdown routines": [[1]](https://www.calnewport.com/blog/2009/06/08/drastically-reduce-stress-with-a-work-shutdown-ritual/)[[2]](https://www.calnewport.com/blog/2012/08/02/work-less-to-work-better-my-experiments-with-shutdown-routines/).
+<!-- tocstop -->
 
 #### What is Devlog?
 
-Devlog generates a time stamped, customizable, "development log" markdown file to a directory you specify. You can save your devlog files into a git repository or to a cloud file service directory like dropbox, google drive, or one drive for automated syncing and backup.
+Devlog generates simple note, todo or "Development Log" journal markdown documents that are customizable. You can save your devlog files into a git repository or to a cloud file service directory like dropbox, google drive, or one drive for automated syncing and backup.
 
 Devlog prioritizes:
-- Open standards over closed. Keep your notes in markdown files that can be queried for easily in a directory, not locked into some vendors service or custom formatting standards.
-- Ease of use and simplicity. This is not meant to be a complex static content generator. It strives to be an easy to configure and create customizable markdown files to fill out in a text editor of your choice.
+- Open standards over closed. Keep your notes in markdown files that can be searched for easily in a directory, not locked into some vendors service or custom formatting standards.
+- Simplicity. This is not meant to be a complex static content generator. It strives to be an easy to configure and create customizable markdown files to fill out in a text editor of your choice.
+- Commandline first. You should be able to create edit and view notes without leaving your commandline and having to context switch.
+- Usability. Sensible defaults for most things and simple options for customization as well. 
+
+#### What kind of note files can we generate?
+
+Currently there are three kind of documents you can create:
+- note: Generates an empty note markdown document with a title. Great for quickly jotting down some notes or any content you want to add that is less structured. 
+- todo: Generates a TODO markdown file with a few checkboxes.
+- log: Generates a "Development Log" which is a document with questions you fill out at the end of a development session to reflect on how the session went and what you learned.
+
+All documents are generated with a timestamp and can be customized via a template if you desire.
+
+#### What is a Development Log?
+
+A development log is a like a software development journal that you fill out after a coding session. It's great for reflecting on how coding sessions went, doing brain dumps and or quickly documenting TODOs.
+
+Filling out these type of "development logs" and notes about coding sessions is inspired by the [note taking practices of prolific Doom/VR developer John Carmack](https://news.ycombinator.com/item?id=12575501). This can also be useful when paired with a "shutdown routine" at the end of an intense work session to help us mentally disconnect. More about "shutdown routines": [[1]](https://www.calnewport.com/blog/2009/06/08/drastically-reduce-stress-with-a-work-shutdown-ritual/)[[2]](https://www.calnewport.com/blog/2012/08/02/work-less-to-work-better-my-experiments-with-shutdown-routines/).
 
 #### Install
 The easiest way to install devlog is to use the provided installation script
@@ -52,17 +60,25 @@ If you already have an updated version of go lang, installing via go is easy:
 `go get -u github.com/automoto/devlog/`
 
 
-#### Using Devlog
-Ideally you will run Devlog during or towards the end of your development session and it will be filled out with your notes and answers to the questions when your finished. The "Notes" section at the bottom is great for TODOs or other information you want to keep. [Here is an example of a filled out devlog](https://gist.github.com/automoto/15e037d40258df1b8c2394ba1bae2c07). 
+#### Using Devlog 
 
-Devlog is designed to automate generating a development log markdown file for you to fill out in your favorite text editor. Once you have installed it, just type `devlog` and it will generate a time stamped markdown document. 
+Devlog is designed to automate generating a markdown file for you to fill out in your favorite text editor. Once you have installed it, just type `devlog` and it will generate a time stamped markdown document. 
 
 ```shell
-# Generate a markdown document log in the current directory
+# Generate a 'note' markdown document in the current directory. Note is the default kind of document.
 devlog
 
-# Output the log document to your terminal instead of a document
+# Generate a 'development log' markdown document with the -type or -t option
+devlog -type log
+
+# Specify the path of where the output file will be saved with the -path or -p option
+devlog -path '/home/documents'
+
+# You can also output a document to your terminal instead of a file
 devlog -p 'stdout'
+
+# Use a custom template to generate a todo document
+devlog -template 'custom_todo.gohtml' -type todo  
 
 ```
 
@@ -81,7 +97,7 @@ nano `devlog | tail -n 1`
 ```
 
 
-#### Configure
+##### Configure
 By default `devlog` will generate a markdown file in the current directory unless you specify the directory via setting environment variables or through command line options you set.
 
 ##### Configuration using environment variables:
@@ -107,11 +123,16 @@ DEVLOG_DIR="/home/your_username/other_directory" devlog
 
 You can also pass in configurations via command line options. Command line options take precedence over configurations set via environment variables.
 ```
-devlog -p "/home/your_username/your_directory" -t "/home/your_username/your_directory/custom.gohtml" 
+# Save a file to a specific directory and using a custom template
+devlog -p "/home/your_username/your_directory" -t "/home/your_username/your_directory/custom.gohtml"
+
+# Generate a 'todo' markdown document with the -type or -t option
+devlog -t todo
 ```
+
 To view all the possible command line options, just pass in the `-h` command line option for help e.g. `devlog -h` 
 
-#### Customizing questions and content of Devlog
+#### Customizing content of Devlog files
 You can customize the content of your markdown document by creating a `.gohtml` file and specifying your custom content there.
 ``` gohtml
 ### Development Log
@@ -131,44 +152,5 @@ Now you can pass in your configuration file to devlog:
 devlog -t your_custom_questions_file.gohtml
 ```
 
-#### Building Locally
-
-*Prerequisites:*
-  - go lang version 1.13
-
-Simply clone this repository and run the following command to build the binary:
-```shell
-make build
-```
-
-This will create a binary locally you can run commands against already, like so:
-
-`./devlog`
-
-Build and copy the binary to your local bin to access the CLI anywhere. It will likely prompt you for a password since it's needed to install things to your `/usr/local/bin`.
-
-```shell
-make install
-```
-
-Now you can run the command `devlog` from anywhere to generate a new devlog file:
-
-``` shell
-devlog
-2019/09/02 22:00:32 Successfully saved dev log to directory: /home/dev/null
-```
-
-*Testing the gorelease builds*
-You may need to run the gorelease command locally for debugging. To do this, run this command:
-
-``` shell
-DEVLOG_VERSION=$(git describe --tags) goreleaser --rm-dist --snapshot --skip-publish
-```
-
 #### Contributing
-
-The `Makefile` has most of the commands you need to build, lint, and run the tests locally.
-
-Fork and create a pull-request if you wish to contribute a fix or improvement to Devlog.
-
-A contributor will build your PR in circle-ci and review the change. Please include unit tests and a description of the change in your pull request.
+Take a look at our `CONTRIBUTING.md` guide for instructions on how to build, test and submit changes to devlog.
