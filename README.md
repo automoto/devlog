@@ -31,21 +31,6 @@ Devlog prioritizes:
 - Commandline first. You should be able to create, edit, and, view notes without leaving your commandline and having to context switch.
 - Ease of use. Sensible defaults for most things and simple options for customization as well.
 
-#### What kind of note files can we generate?
-
-Currently there are three kind of documents you can create:
-- **note:** Generates an empty note markdown document with a title. Great for quickly jotting down some notes or any content you want to add that is less structured.
-- **todo:** Generates a TODO markdown file with a few checkboxes.
-- **log:** Generates a "Development Log" which is a document with questions you fill out at the end of a development session to reflect on how the session went and what you learned.
-
-All documents are generated with a timestamp and can be customized via a template if you desire.
-
-#### What is a Development Log?
-
-A development log is a like a software development journal that you fill out after a coding session. It's great for reflecting on how coding sessions went, doing brain dumps and or quickly documenting TODOs.
-
-Filling out these type of "development logs" and notes about coding sessions is inspired by the [note taking practices of prolific Doom/VR developer John Carmack](https://news.ycombinator.com/item?id=12575501). This can also be useful when paired with a "shutdown routine" at the end of an intense work session to help us mentally disconnect. More about "shutdown routines": [[1]](https://www.calnewport.com/blog/2009/06/08/drastically-reduce-stress-with-a-work-shutdown-ritual/)[[2]](https://www.calnewport.com/blog/2012/08/02/work-less-to-work-better-my-experiments-with-shutdown-routines/).
-
 #### Install
 The easiest way to install devlog is to use the provided installation script
 ```shell
@@ -60,6 +45,21 @@ If you prefer to install it yourself, you can get the latest release binary dire
 
 If you already have an updated version of go lang, installing via go is easy:
 `go get -u github.com/automoto/devlog/`
+
+#### What kind of note files can we generate?
+
+Currently there are three kind of documents you can create:
+- **note:** Generates an empty note markdown document with a title. Great for quickly jotting down some notes or any content you want to add that is less structured.
+- **todo:** Generates a TODO markdown file with a few checkboxes.
+- **log:** Generates a "Development Log" which is a document with questions you fill out at the end of a development session to reflect on how the session went and what you learned.
+
+All documents are generated with a timestamp and can be customized via a template if you desire.
+
+#### What is a Development Log?
+
+A development log is a like a software development journal that you fill out after a coding session. It's great for reflecting on how coding sessions went, doing brain dumps and or quickly documenting TODOs.
+
+Filling out these type of "development logs" and notes about coding sessions is inspired by the [note taking practices of prolific Doom/VR developer John Carmack](https://news.ycombinator.com/item?id=12575501). This can also be useful when paired with a "shutdown routine" at the end of an intense work session to help us mentally disconnect. More about "shutdown routines": [[1]](https://www.calnewport.com/blog/2009/06/08/drastically-reduce-stress-with-a-work-shutdown-ritual/)[[2]](https://www.calnewport.com/blog/2012/08/02/work-less-to-work-better-my-experiments-with-shutdown-routines/).
 
 
 #### Using Devlog 
