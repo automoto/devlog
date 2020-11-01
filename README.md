@@ -23,16 +23,18 @@
 
 Devlog generates a simple note, todo or "Development Log" journal markdown document that is customizable. You can save your devlog files into a git repository or to a local directory that will sync with dropbox, google drive, or one drive for automated syncing and backup.
 
+![demo](static/devlog5.gif)
+
 Devlog prioritizes:
 - Open standards over closed. Keep your notes in markdown files that can be searched for easily in a directory, not locked into some vendors service or custom formatting standards.
 - Simplicity. This is not meant to be a complex static content generator. It strives to be an easy to configure and create customizable markdown files that you can fill out in a text editor of your choice.
 - Commandline first. You should be able to create, edit, and, view notes without leaving your commandline and having to context switch.
-- Ease of use. Sensible defaults for most things and simple options for customization as well. 
+- Ease of use. Sensible defaults for most things and simple options for customization as well.
 
 #### What kind of note files can we generate?
 
 Currently there are three kind of documents you can create:
-- **note:** Generates an empty note markdown document with a title. Great for quickly jotting down some notes or any content you want to add that is less structured. 
+- **note:** Generates an empty note markdown document with a title. Great for quickly jotting down some notes or any content you want to add that is less structured.
 - **todo:** Generates a TODO markdown file with a few checkboxes.
 - **log:** Generates a "Development Log" which is a document with questions you fill out at the end of a development session to reflect on how the session went and what you learned.
 
