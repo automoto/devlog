@@ -66,7 +66,7 @@ DEVLOG_VERSION=$(git describe --tags) goreleaser --rm-dist --snapshot --skip-pub
 
 ``` shell
 # Readme
-markdown-toc --bullets "*" --no-firsth1 -i README.md
+markdown-toc --bullets "*" -i README.md
 
 # Contributing guide
 markdown-toc --bullets "*" -i CONTRIBUTING.md

@@ -7,15 +7,17 @@ Devlog's goal is to help you create a "Development Log" to reflect and generate 
 
 <!-- toc -->
 
+* [What is Devlog?](#what-is-devlog)
 * [What kind of note files can we generate?](#what-kind-of-note-files-can-we-generate)
 * [What is a Development Log?](#what-is-a-development-log)
 * [Install](#install)
-* [Install Using Go](#install-using-go)
+  * [Install Using Go](#install-using-go)
 * [Using Devlog](#using-devlog)
-* [Configure](#configure)
-* [Configuration using environment variables:](#configuration-using-environment-variables)
-* [Configuration using command line options:](#configuration-using-command-line-options)
+  * [Configure](#configure)
+  * [Configuration using environment variables:](#configuration-using-environment-variables)
+  * [Configuration using command line options:](#configuration-using-command-line-options)
 * [Customizing content of Devlog files](#customizing-content-of-devlog-files)
+* [Contributing](#contributing)
 
 <!-- tocstop -->
 
