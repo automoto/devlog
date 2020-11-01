@@ -133,8 +133,8 @@ func (f DevlogFile) SaveFile(outputMd string, file io.Writer, docType string) er
 
 // GetOutputPath gets a path and selects sensible defaults if one is not set
 func (f DevlogFile) GetOutputPath() string {
-	if len(f.OutputFilePath) >= 1 {
-		return f.OutputFilePath
+	if len(f.OutputDirPath) >= 1 {
+		return f.OutputDirPath
 	}
 	envVarPath := osGetEnv("DEVLOG_DIR")
 	if len(envVarPath) >= 1 {
