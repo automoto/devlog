@@ -61,6 +61,7 @@ func cleanInput(inputString string) string {
 	return finalInput
 }
 
+// Converts a string slice into a formatted string of tags
 func ConvertTagsToString(tags []string) string {
 	finalString := make([]string, 0)
 	tagChar := "#"
@@ -71,6 +72,7 @@ func ConvertTagsToString(tags []string) string {
 	return strings.Join(finalString, " ")
 }
 
+// Parses the tags into a string slice
 func ParseTags(inputTags string) []string {
 	if len(inputTags) >= 1 {
 		result := strings.Split(inputTags, ",")
