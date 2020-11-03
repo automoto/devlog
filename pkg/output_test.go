@@ -13,8 +13,9 @@ import (
 
 // test data
 var testTime = time.Now().Format("2006-01-02 15:04:05")
-var expectedLogOutput = fmt.Sprintf(`### Development Log
-*created: %s*
+var expectedLogOutput = fmt.Sprintf(`created: %s
+
+### Development Log
 
 
 ##### How did your development session go?
@@ -37,15 +38,17 @@ var expectedLogOutput = fmt.Sprintf(`### Development Log
 ##### Notes
 
 `, testTime)
-var expectedTdOutput = fmt.Sprintf(`### TODO
-*created: %s*
+var expectedTdOutput = fmt.Sprintf(`created: %s
+
+### TODO
+
 
 - [ ]
 - [ ]
 
 `, testTime)
-var expectedDefaultOutput = fmt.Sprintf(`### Note
-*created: %s*
+var expectedDefaultOutput = fmt.Sprintf(`created: %s
+### Note
 
 `, testTime)
 

@@ -79,3 +79,6 @@ func Test_cleanInput(t *testing.T) {
 		assert.Equal(t, expectedOutput, got)
 	})
 }
+
+func Test_parseTags(t *testing.T) {
+}
