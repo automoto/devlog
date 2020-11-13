@@ -61,8 +61,28 @@ func cleanInput(inputString string) string {
 	return finalInput
 }
 
+// ConvertTagsToString converts a string slice into a formatted string of tags
+func ConvertTagsToString(tags []string) string {
+	finalString := make([]string, 0)
+	tagChar := "#"
+	for _, value := range tags {
+		trimmed := strings.TrimSpace(value)
+		finalString = append(finalString, fmt.Sprintf("%s%s", tagChar, trimmed))
+	}
+	return strings.Join(finalString, " ")
+}
+
+// ParseTags parses the tags into a string slice
+func ParseTags(inputTags string) []string {
+	if len(inputTags) >= 1 {
+		result := strings.Split(inputTags, ",")
+		return result
+	}
+	return nil
+}
+
 // Start is the global executor that pulls in the configuration settings, generates the content and saves the file.
-func Start(templatePath string, outputDirPath string, docType string) {
+func Start(templatePath string, tags string, outputDirPath string, docType string) {
 	docType = cleanInput(docType)
 	_, err := isDocTypeValid(docType)
 	handleError(err)
@@ -71,6 +91,11 @@ func Start(templatePath string, outputDirPath string, docType string) {
 		FormattedCurrentTime: ct.GetCurrentDayAndTime().Format("2006-01-02 15:04:05"),
 		TemplatePath:         templatePath,
 		DocumentType:         docType,
+		Tags:                 "",
+	}
+	parsedTags := ParseTags(tags)
+	if len(parsedTags) >= 1 {
+		c.Tags = ConvertTagsToString(parsedTags)
 	}
 	output := c.GenerateMarkdown()
 

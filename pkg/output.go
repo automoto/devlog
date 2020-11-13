@@ -59,6 +59,7 @@ type Content struct {
 	FormattedCurrentTime string
 	TemplatePath         string
 	DocumentType         string
+	Tags                 string
 }
 
 // ReadTemplate get a template based on the configured options and read it

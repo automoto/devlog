@@ -17,11 +17,12 @@ func main() {
 	flag.StringVar(&typeFlagInput, "t", "note", "Shortcut for document type.")
 	templateFlagPtr := flag.String("template", "", "File path to the .gohtml file for customizing your devlog notes.")
 	versionFlagPtr := flag.Bool("v", false, "Return the current version of devlog.")
+	tagFlagPtr := flag.String("tags", "", "Tags to be added to the document. Multiple tags should be formatted as a comma separated list e.g. 'python, debugging, cli'")
 
 	flag.Parse()
 	if *versionFlagPtr {
 		fmt.Println(devlogVersion)
 		return
 	}
-	pkg.Start(*templateFlagPtr, pathFlagInput, typeFlagInput)
+	pkg.Start(*templateFlagPtr, *tagFlagPtr, pathFlagInput, typeFlagInput)
 }

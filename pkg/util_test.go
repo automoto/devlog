@@ -79,3 +79,30 @@ func Test_cleanInput(t *testing.T) {
 		assert.Equal(t, expectedOutput, got)
 	})
 }
+
+func Test_ParseTags(t *testing.T) {
+
+	t.Run("tags get parsed correctly", func(t *testing.T) {
+		expectedOutput := []string{"dog", "cat ", " bats and birds", "bees"}
+		got := ParseTags("dog,cat , bats and birds,bees")
+		assert.Equal(t, expectedOutput, got)
+
+	})
+	t.Run("tags get parsed correctly when not present", func(t *testing.T) {
+		got := ParseTags("")
+		assert.Nil(t, got)
+	})
+}
+
+func Test_ConvertTagsToString(t *testing.T) {
+	t.Run("tags get converted to strings correctly with single tag", func(t *testing.T) {
+		expectedOutput := "#dog"
+		got := ConvertTagsToString([]string{"dog"})
+		assert.Equal(t, expectedOutput, got)
+	})
+	t.Run("tags get converted to strings correctly with multiple tags", func(t *testing.T) {
+		expectedOutput := "#bats #cats #dogs #ants and spiders"
+		got := ConvertTagsToString([]string{"bats ", "cats", " dogs", "ants and spiders "})
+		assert.Equal(t, expectedOutput, got)
+	})
+}
