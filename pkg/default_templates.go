@@ -1,14 +1,15 @@
 package pkg
 
-const defaultTemplate = `{{ if .FormattedCurrentTime }}created: {{.FormattedCurrentTime}}{{ end }}{{ if .Tags }}
+const defaultTemplate = `{{ if .FormattedCurrentTime }}created: {{.FormattedCurrentTime}}{{ end }}
+{{ if .Tags }}tags: {{.Tags}}{{ end }}
 
-tags: {{.Tags}}{{ end }}
 ### Note
 
 `
 
 const logTemplate = `{{ if .FormattedCurrentTime }}created: {{.FormattedCurrentTime}}{{ end }}
 {{ if .Tags }}tags: {{.Tags}}{{ end }}
+
 ### Development Log
 
 
@@ -36,6 +37,7 @@ const logTemplate = `{{ if .FormattedCurrentTime }}created: {{.FormattedCurrentT
 //TODO: get input on how many TDs and use a loop to generate the TODOs
 const tdTemplate = `{{ if .FormattedCurrentTime }}created: {{.FormattedCurrentTime}}{{ end }}
 {{ if .Tags }}tags: {{.Tags}}{{ end }}
+
 ### TODO
 
 
