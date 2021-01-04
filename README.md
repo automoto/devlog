@@ -23,7 +23,7 @@
 
 Devlog generates a simple note, todo or "Development Log" journal markdown document that is customizable. You can save your devlog files into a git repository or to a local directory that will sync with dropbox, google drive, or one drive for automated syncing and backup.
 
-![demo](static/devlog6.gif)
+![demo](static/devlog8.gif)
 
 Devlog prioritizes:
 - Open standards over closed. Keep your notes in markdown files that can be searched for easily in a directory, not locked into some vendors service or custom formatting standards.
