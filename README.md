@@ -160,6 +160,7 @@ You can customize the content of your markdown document by creating a `.gohtml` 
 ```gohtml
 ### Development Log
 *created: {{.FormattedCurrentTime}}*
+*tags: {{.Tags}}
 
 ##### Notes
 
@@ -168,11 +169,11 @@ You can customize the content of your markdown document by creating a `.gohtml` 
 - [ ]
 - [ ]
 ```
-*note you will need to include `{{.FormattedCurrentTime}}` in your template for it to work.*
+*note you should include `{{.FormattedCurrentTime}}` in your template to include the date/time and `{{.Tags}}` to include tags.*
 
 Now you can pass in your configuration file to devlog:
 ```
-devlog -template your_custom_questions_file.gohtml
+devlog -template your_custom_file.gohtml
 ```
 
 #### Viewing the generated files
