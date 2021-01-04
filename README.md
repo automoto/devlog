@@ -160,7 +160,7 @@ You can customize the content of your markdown document by creating a `.gohtml` 
 ```gohtml
 ### Development Log
 *created: {{.FormattedCurrentTime}}*
-*tags: {{.Tags}}
+*tags: {{.Tags}}*
 
 ##### Notes
 
