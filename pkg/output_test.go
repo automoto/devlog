@@ -48,6 +48,7 @@ var expectedTdOutput = fmt.Sprintf(`created: %s
 
 `, testTime)
 var expectedDefaultOutput = fmt.Sprintf(`created: %s
+
 ### Note
 
 `, testTime)
