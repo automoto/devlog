@@ -66,6 +66,7 @@ If you already have an updated version of go lang, installing via go is easy:
 
 Devlog is designed to automate generating a markdown file for you to fill out in your favorite text editor. Once you have installed it, just type `devlog` and it will generate a time stamped markdown document.
 
+Generate a document:
 ```shell
 # Generate a 'note' markdown document in the current directory. Note is the default kind of document.
 devlog
@@ -73,18 +74,27 @@ devlog
 # Generate a 'development log' markdown document with the -type or -t option
 devlog -type log
 
+# Generate a 'todo' markdown document using the -t shorthand option
+devlog -t todo
+```
+
+Specify the path where a document is generated:
+```shell
 # Specify the path of where the output file will be saved with the -path or -p option
 devlog -path '/home/documents'
 
 # You can also output a document to your terminal instead of a file
 devlog -path 'stdout'
+```
 
+Customize the layout of a generated document:
+```shell
 # Use a custom template to generate a todo document
 devlog -template 'custom_todo.gohtml' -type todo
 
 ```
 
-Adding tags to a document. Tags will appear at the top of a document and will be prefixed with a `#`.
+Adding tags to a generated document. Tags will appear at the top of a document and will be prefixed with a `#`:
 ``` shell
 # Create a new document with a single tag
 devlog -tag 'python'
