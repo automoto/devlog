@@ -1,7 +1,7 @@
 ### Dev Log
 [![CircleCI](https://circleci.com/gh/automoto/devlog.svg?style=svg)](https://circleci.com/gh/automoto/devlog)
 
-*The command line app to capture your notes, reflections, and TODOs in markdown.*
+*The command line first app to capture your notes, reflections, and TODOs in markdown.*
 
 <!-- toc -->
 
@@ -23,7 +23,7 @@
 
 Devlog generates a simple note, todo or "Development Log" journal markdown document that is customizable. You can save your devlog files into a git repository or to a local directory that will sync with dropbox, google drive, or one drive for automated syncing and backup.
 
-![demo](static/devlog6.gif)
+![demo](static/devlog8.gif)
 
 Devlog prioritizes:
 - Open standards over closed. Keep your notes in markdown files that can be searched for easily in a directory, not locked into some vendors service or custom formatting standards.
@@ -66,6 +66,7 @@ If you already have an updated version of go lang, installing via go is easy:
 
 Devlog is designed to automate generating a markdown file for you to fill out in your favorite text editor. Once you have installed it, just type `devlog` and it will generate a time stamped markdown document.
 
+Generate a document:
 ```shell
 # Generate a 'note' markdown document in the current directory. Note is the default kind of document.
 devlog
@@ -73,18 +74,27 @@ devlog
 # Generate a 'development log' markdown document with the -type or -t option
 devlog -type log
 
+# Generate a 'todo' markdown document using the -t shorthand option
+devlog -t todo
+```
+
+Specify the path where a document is generated:
+```shell
 # Specify the path of where the output file will be saved with the -path or -p option
 devlog -path '/home/documents'
 
 # You can also output a document to your terminal instead of a file
 devlog -path 'stdout'
+```
 
+Customize the layout of a generated document:
+```shell
 # Use a custom template to generate a todo document
 devlog -template 'custom_todo.gohtml' -type todo
 
 ```
 
-Adding tags to a document. Tags will appear at the top of a document and will be prefixed with a `#`.
+Adding tags to a generated document. Tags will appear at the top of a document and will be prefixed with a `#`:
 ``` shell
 # Create a new document with a single tag
 devlog -tag 'python'
@@ -150,6 +160,7 @@ You can customize the content of your markdown document by creating a `.gohtml` 
 ```gohtml
 ### Development Log
 *created: {{.FormattedCurrentTime}}*
+*tags: {{.Tags}}
 
 ##### Notes
 
@@ -158,11 +169,11 @@ You can customize the content of your markdown document by creating a `.gohtml` 
 - [ ]
 - [ ]
 ```
-*note you will need to include `{{.FormattedCurrentTime}}` in your template for it to work.*
+*note you should include `{{.FormattedCurrentTime}}` in your template to include the date/time and `{{.Tags}}` to include tags.*
 
 Now you can pass in your configuration file to devlog:
 ```
-devlog -template your_custom_questions_file.gohtml
+devlog -template your_custom_file.gohtml
 ```
 
 #### Viewing the generated files
