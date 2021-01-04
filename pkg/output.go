@@ -153,6 +153,6 @@ func (f DevlogFile) GetFullOutputPath(docType string) string {
 // TODO: refactor time.Now call here to use our time interface in util for testing
 func (f DevlogFile) GenerateFileName(docType string) string {
 	now := time.Now()
-	return fmt.Sprintf("devlog_%s_%s_%d-%d-%d.md", docType, now.Format("01_02_2006"), now.Hour(),
+	return fmt.Sprintf("devlog_%s_%s_%d_%d_%d.md", docType, now.Format("01_02_2006"), now.Hour(),
 		now.Minute(), now.Second())
 }
