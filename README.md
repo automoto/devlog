@@ -1,7 +1,7 @@
 ### Dev Log
 [![CircleCI](https://circleci.com/gh/automoto/devlog.svg?style=svg)](https://circleci.com/gh/automoto/devlog)
 
-*The command line app to capture your notes, reflections, and TODOs in markdown.*
+*The command line first app to capture your notes, reflections, and TODOs in markdown.*
 
 <!-- toc -->
 
