@@ -2,7 +2,7 @@
 	build move-to-bin install test lint dep test-ci latest-release
 
 dep:
-	GO111MODULE=on go mod vendor
+	go mod vendor
 
 build:
 	@echo "Building the binary..."
