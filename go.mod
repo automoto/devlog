@@ -1,6 +1,6 @@
 module github.com/automoto/devlog
 
-go 1.13
+go 1.16
 
 require (
 	github.com/alecthomas/gometalinter v3.0.0+incompatible // indirect
