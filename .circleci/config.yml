@@ -6,7 +6,7 @@ jobs:
   build:
     docker:
       # specify the version
-      - image: circleci/golang:1.13
+      - image: circleci/golang:1.16
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -36,7 +36,7 @@ jobs:
           path: pkg
   release:
     docker:
-      - image: circleci/golang:1.13
+      - image: circleci/golang:1.16
     working_directory: /go/src/github.com/{{ORG_NAME}}/{{REPO_NAME}}
     steps:
       - checkout
